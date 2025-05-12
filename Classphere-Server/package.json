@@ -1,0 +1,14 @@
+{
+    "name": "mmosvr",
+    "version": "0.0.1",
+    "private": true,
+    "dependencies": {
+        "binary-parser": "*",
+        "dotenv": "^16.5.0",
+        "extend": "*",
+        "minimist": "*",
+        "mongoose": "*",
+        "performance-now": "*",
+        "underscore": "*"
+    }
+}

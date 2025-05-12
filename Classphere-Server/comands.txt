@@ -1,0 +1,2 @@
+Debug Test : node server.js --env="test"
+Debug Prod : node server.js --env="production"
