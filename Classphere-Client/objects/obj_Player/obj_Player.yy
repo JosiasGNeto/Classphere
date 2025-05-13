@@ -33,8 +33,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_ui_base",
-    "path":"sprites/spr_ui_base/spr_ui_base.yy",
+    "name":"spr_Student_Walking_Right",
+    "path":"sprites/spr_Student_Walking_Right/spr_Student_Walking_Right.yy",
   },
   "spriteMaskId":null,
   "visible":true,

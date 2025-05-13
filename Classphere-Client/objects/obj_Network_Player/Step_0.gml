@@ -1,13 +1,13 @@
 var dx = target_x - x;
 var dy = target_y - y;
-var dist = point_distance(x, y, target_x, target_y);
 
-if (dist > 1) {
-    var dir = point_direction(x, y, target_x, target_y);
-    var move_speed = min(4, dist); // evitar ultrapassar
-    x += lengthdir_x(move_speed, dir);
-    y += lengthdir_y(move_speed, dir);
-} else {
-    x = target_x;
-    y = target_y;
+var move_speed = 4;
+
+if (abs(dx) > 0 || abs(dy) > 0) {
+    // Prioriza movimento em X se houver distância
+    if (abs(dx) > abs(dy)) {
+        x += clamp(dx, -move_speed, move_speed);
+    } else {
+        y += clamp(dy, -move_speed, move_speed);
+    }
 }

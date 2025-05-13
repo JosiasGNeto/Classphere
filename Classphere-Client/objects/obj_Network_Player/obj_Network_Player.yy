@@ -32,8 +32,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_ui_base",
-    "path":"sprites/spr_ui_base/spr_ui_base.yy",
+    "name":"spr_Student_Iddle_Down",
+    "path":"sprites/spr_Student_Iddle_Down/spr_Student_Iddle_Down.yy",
   },
   "spriteMaskId":null,
   "visible":true,
