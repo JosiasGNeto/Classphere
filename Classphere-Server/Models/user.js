@@ -1,3 +1,5 @@
+const bcrypt = require('bcrypt');
+const SALT_ROUNDS = 10;
 var mongoose = require('mongoose');
 
 var userSchema = new mongoose.Schema({
@@ -13,9 +15,11 @@ var userSchema = new mongoose.Schema({
 
 userSchema.statics.register = async function(username, password, cb) {
     try {
+        const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
+
         var new_user = new User({
             username: username,
-            password: password,
+            password: hashedPassword,
             sprite: "spr_Player",
             current_room: maps[config.starting_zone].room,
             pos_x: maps[config.starting_zone].start_x,
@@ -31,9 +35,8 @@ userSchema.statics.register = async function(username, password, cb) {
 
 userSchema.statics.login = async function(username, password, cb) {
     try {
-        const user = await User.findOne({username: username});
-        
-        if (user && user.password === password) {
+        const user = await User.findOne({ username: username });
+        if (user && await bcrypt.compare(password, user.password)) {
             cb(true, user);
         } else {
             cb(false, null);

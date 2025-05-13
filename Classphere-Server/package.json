@@ -3,6 +3,7 @@
     "version": "0.0.1",
     "private": true,
     "dependencies": {
+        "bcrypt": "^5.1.1",
         "binary-parser": "*",
         "dotenv": "^16.5.0",
         "extend": "*",
