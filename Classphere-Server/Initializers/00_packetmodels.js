@@ -9,12 +9,12 @@ module.exports = PacketModels = {
     login: new Parser().skip(1)
         .string("command", StringOptions)
         .string("username", StringOptions)
-        .string("password", StringOptions),  //Lembrar de tentar criptografar isso!!
+        .string("password", StringOptions), 
 
     register: new Parser().skip(1)
         .string("command", StringOptions)
         .string("username", StringOptions)
-        .string("password", StringOptions),  //Lembrar de tentar criptografar isso!!    
+        .string("password", StringOptions),     
 
     pos: new Parser().skip(1)
         .string("command", StringOptions)
