@@ -7,7 +7,7 @@ if (focused) {
     var border_thickness = 5;
     
     // Escolha a cor da borda aqui:
-    var border_color = make_color_rgb(124, 61, 225); // Azul claro, por exemplo
+    var border_color = make_color_rgb(124, 61, 225);
 
     // Retângulo maior (borda)
     draw_set_color(border_color);
@@ -25,7 +25,8 @@ if (focused) {
 // Texto
 if (string_length(text) > 0 || focused) {
     draw_set_color(make_color_rgb(92, 40, 176));
-    draw_text(x - 350 , y - 25, string(text));
+    draw_text(x - 350 , y - 22, string(text));
 } else {
-    draw_text(x - 50 , y - 20, string(placeholder));
+	draw_set_color(make_color_rgb(174, 136, 236));
+    draw_text(x - 350 , y - 22, string(placeholder));
 }

@@ -1,3 +1,3 @@
 event_inherited();
 
-placeholder = "";
+placeholder = "Nome";
