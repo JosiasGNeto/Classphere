@@ -80,18 +80,25 @@ module.exports = packet = {
                 break;
 
             case "REGISTER":
-                
-                var data = PacketModels.register.parse(datapacket);    
-                User.register(data.username, data.password, function(result){
-                    if(result){
-                        c.socket.write(packet.build(["REGISTER", "TRUE"]));
+                var data = PacketModels.register.parse(datapacket);
+                User.register(
+                    data.username,
+                    data.email,
+                    data.rg,
+                    data.nome,
+                    data.sobrenome1,
+                    data.sobrenome2,
+                    data.nascimento,
+                    function(result) {
+                        if (result) {
+                            c.socket.write(packet.build(["REGISTER", "TRUE"]));
+                        } else {
+                            c.socket.write(packet.build(["REGISTER", "FALSE"]));
+                        }
                     }
-                    else{
-                        c.socket.write(packet.build(["REGISTER", "FALSE"]));
-                    }
-                });
-
+                );
                 break;
+
 
             case "POS":
                 var data = PacketModels.pos.parse(datapacket);

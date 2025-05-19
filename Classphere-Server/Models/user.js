@@ -10,16 +10,30 @@ var userSchema = new mongoose.Schema({
 
     current_room: String,
     pos_x: Number,
-    pos_y: Number
+    pos_y: Number,
+
+    email: { type: String, required: true },
+    rg: { type: String, required: true },
+    nome: { type: String, required: true },
+    sobrenome1: { type: String, required: true },
+    sobrenome2: { type: String },
+    nascimento: { type: Date, required: true }
 });
 
-userSchema.statics.register = async function(username, password, cb) {
+userSchema.statics.register = async function(username, email, rg, nome, sobrenome1, sobrenome2, nascimento, cb) {
     try {
-        const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
+        const hashedPassword = await bcrypt.hash(rg, SALT_ROUNDS); // senha = hash do RG
 
         var new_user = new User({
-            username: username,
+            username: `${nome} ${sobrenome1 || ''}`.trim(),
             password: hashedPassword,
+            email,
+            rg,
+            nome,
+            sobrenome1,
+            sobrenome2,
+            nascimento: new Date(nascimento),
+
             sprite: "spr_Player",
             current_room: maps[config.starting_zone].room,
             pos_x: maps[config.starting_zone].start_x,
@@ -29,9 +43,11 @@ userSchema.statics.register = async function(username, password, cb) {
         await new_user.save();
         cb(true);
     } catch (err) {
+        console.error("Erro no registro:", err);
         cb(false);
     }
 };
+
 
 userSchema.statics.login = async function(username, password, cb) {
     try {
