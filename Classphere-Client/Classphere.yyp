@@ -84,6 +84,7 @@
     {"id":{"name":"spr_Student_Walking_Up","path":"sprites/spr_Student_Walking_Up/spr_Student_Walking_Up.yy",},},
     {"id":{"name":"spr_ui_base","path":"sprites/spr_ui_base/spr_ui_base.yy",},},
     {"id":{"name":"stairs","path":"sprites/stairs/stairs.yy",},},
+    {"id":{"name":"txt","path":"sprites/txt/txt.yy",},},
     {"id":{"name":"Class","path":"tilesets/Class/Class.yy",},},
     {"id":{"name":"Generic","path":"tilesets/Generic/Generic.yy",},},
     {"id":{"name":"Stairs","path":"tilesets/Stairs/Stairs.yy",},},

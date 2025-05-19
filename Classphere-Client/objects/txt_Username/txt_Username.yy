@@ -33,8 +33,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_ui_base",
-    "path":"sprites/spr_ui_base/spr_ui_base.yy",
+    "name":"txt",
+    "path":"sprites/txt/txt.yy",
   },
   "spriteMaskId":null,
   "visible":true,
