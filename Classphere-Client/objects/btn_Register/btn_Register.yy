@@ -12,10 +12,7 @@
     "name":"Login",
     "path":"folders/Objects/Room Specific/Login.yy",
   },
-  "parentObjectId":{
-    "name":"ui_button_base",
-    "path":"objects/ui_button_base/ui_button_base.yy",
-  },
+  "parentObjectId":null,
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,

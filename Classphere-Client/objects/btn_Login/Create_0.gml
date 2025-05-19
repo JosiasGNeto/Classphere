@@ -1,3 +1,2 @@
-event_inherited();
-
-text = "Login"
+text = "Entrar"
+hover = false;

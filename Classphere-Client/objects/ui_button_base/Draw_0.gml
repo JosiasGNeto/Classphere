@@ -1,5 +1,5 @@
 if(hover){
-	draw_sprite_ext(sprite_index, image_index, x, y, image_xscale, image_yscale, image_angle, c_gray, 1.0);
+	draw_sprite_ext(sprite_index, image_index, x, y, image_xscale, image_yscale, image_angle, make_color_rgb(186, 146, 251), 1.0);
 }
 else{
 	draw_self()
