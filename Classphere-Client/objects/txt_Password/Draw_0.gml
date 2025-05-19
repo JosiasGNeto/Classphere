@@ -25,8 +25,9 @@ if (focused) {
 // Texto
 if (string_length(text) > 0 || focused) {
     draw_set_color(make_color_rgb(92, 40, 176));
-    draw_text(x - 350 , y - 22, string(text));
+    var masked_text = string_repeat("*", string_length(text));
+    draw_text(x - 350 , y - 22, masked_text);
 } else {
-	draw_set_color(make_color_rgb(174, 136, 236));
+    draw_set_color(make_color_rgb(174, 136, 236));
     draw_text(x - 350 , y - 22, string(placeholder));
 }
