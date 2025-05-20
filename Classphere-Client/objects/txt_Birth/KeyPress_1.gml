@@ -8,11 +8,6 @@ if (focused) {
         }
     }
 
-    // Se tecla Backspace foi pressionada, apaga o último número
-    if (keyboard_check_pressed(vk_backspace) && string_length(only_numbers) > 0) {
-        only_numbers = string_copy(only_numbers, 1, string_length(only_numbers) - 1);
-    }
-
     // Se um número foi pressionado
     var ch = keyboard_lastchar;
     if (ord(ch) >= ord("0") && ord(ch) <= ord("9") && string_length(only_numbers) < 8) {
