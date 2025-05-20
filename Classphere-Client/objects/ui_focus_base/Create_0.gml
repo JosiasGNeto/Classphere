@@ -1,4 +1,4 @@
 event_inherited();
 
-focused = false;
+focused = undefined;
 last_char = ""; 

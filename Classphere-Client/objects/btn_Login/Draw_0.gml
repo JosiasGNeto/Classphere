@@ -1,5 +1,5 @@
 // Definir fonte e cor dependendo do hover
-if (hover) {
+if (hover || focused) {
     // Desenhar o botão com cor personalizada
     draw_sprite_ext(sprite_index, image_index, x, y, image_xscale, image_yscale, image_angle, make_color_rgb(124, 61, 225), 1.0);
     

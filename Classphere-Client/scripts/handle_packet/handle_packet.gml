@@ -8,7 +8,7 @@ function handle_packet(){
 		case "Hello":
 			server_time = buffer_read(argument0, buffer_string);
 			room_goto_next();
-			show_debug_message("Server welcomes you @" + server_time);
+			show_debug_message("Bem vindo! @" + server_time);
 			break;
 		
 		case "LOGIN":
@@ -31,17 +31,17 @@ function handle_packet(){
 				
 			}
 			else{
-				show_message("Login Failed")
+				show_message("Usuário ou senha incorreto!")
 			}
 			break;
 			
 		case "REGISTER":
 			status = buffer_read(argument0, buffer_string)
 			if(status == "TRUE"){
-				show_message("Register Success, please Login.")
+				show_message("Usuário registrado com sucesso!")
 			}
 			else{
-				show_message("Register Failed, username taken.")
+				show_message("Erro: Usuário já registrado!")
 			}
 			break;
 			
