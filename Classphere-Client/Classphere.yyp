@@ -50,6 +50,7 @@
     {"id":{"name":"fnt_default","path":"fonts/fnt_default/fnt_default.yy",},},
     {"id":{"name":"btn_Login","path":"objects/btn_Login/btn_Login.yy",},},
     {"id":{"name":"btn_Register","path":"objects/btn_Register/btn_Register.yy",},},
+    {"id":{"name":"chk_Teacher","path":"objects/chk_Teacher/chk_Teacher.yy",},},
     {"id":{"name":"Network","path":"objects/Network/Network.yy",},},
     {"id":{"name":"obj_Blocked","path":"objects/obj_Blocked/obj_Blocked.yy",},},
     {"id":{"name":"obj_Network_Player","path":"objects/obj_Network_Player/obj_Network_Player.yy",},},
@@ -101,8 +102,8 @@
   "resourceVersion":"2.0",
   "RoomOrderNodes":[
     {"roomId":{"name":"connecting","path":"rooms/connecting/connecting.yy",},},
-    {"roomId":{"name":"login","path":"rooms/login/login.yy",},},
     {"roomId":{"name":"register","path":"rooms/register/register.yy",},},
+    {"roomId":{"name":"login","path":"rooms/login/login.yy",},},
     {"roomId":{"name":"spawn","path":"rooms/spawn/spawn.yy",},},
   ],
   "templateType":"game",

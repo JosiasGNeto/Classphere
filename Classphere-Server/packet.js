@@ -89,6 +89,7 @@ module.exports = packet = {
                     data.sobrenome1,
                     data.sobrenome2,
                     data.nascimento,
+                    data.professor === 1,
                     function(result) {
                         if (result) {
                             c.socket.write(packet.build(["REGISTER", "TRUE"]));

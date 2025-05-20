@@ -18,7 +18,8 @@ module.exports = PacketModels = {
         .string("nome", StringOptions)
         .string("sobrenome1", StringOptions)
         .string("sobrenome2", StringOptions)
-        .string("nascimento", StringOptions),  
+        .string("nascimento", StringOptions)
+        .uint8("professor"),  
 
     pos: new Parser().skip(1)
         .string("command", StringOptions)

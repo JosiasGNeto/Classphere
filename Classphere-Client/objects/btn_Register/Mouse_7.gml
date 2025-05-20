@@ -26,6 +26,9 @@ if (
     }
 
     buffer_write(register_packet, buffer_string, txt_Birth.text);       // nascimento (formato "AAAA-MM-DD")
+	
+	var teacher_flag = (chk_Teacher.checked) ? 1 : 0;
+    buffer_write(register_packet, buffer_u8, teacher_flag);
 
     // Envia o pacote para o servidor
     network_write(Network.socket, register_packet);
