@@ -34,8 +34,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"btn_login",
-    "path":"sprites/btn_login/btn_login.yy",
+    "name":"btn_enter",
+    "path":"sprites/btn_enter/btn_enter.yy",
   },
   "spriteMaskId":null,
   "visible":true,

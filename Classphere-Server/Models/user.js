@@ -12,8 +12,8 @@ var userSchema = new mongoose.Schema({
     pos_x: Number,
     pos_y: Number,
 
-    email: { type: String, required: true },
-    rg: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
+    rg: { type: String, required: true, unique: true },
     nome: { type: String, required: true },
     sobrenome1: { type: String, required: true },
     sobrenome2: { type: String },
@@ -21,7 +21,7 @@ var userSchema = new mongoose.Schema({
     professor: { type: Boolean, default: false }
 });
 
-userSchema.statics.register = async function(username, email, rg, nome, sobrenome1, sobrenome2, nascimento, professor, cb) {
+userSchema.statics.register = async function(email, rg, nome, sobrenome1, sobrenome2, nascimento, professor, cb) {
     try {
         const hashedPassword = await bcrypt.hash(rg, SALT_ROUNDS); // senha = hash do RG
 

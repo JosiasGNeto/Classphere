@@ -24,9 +24,11 @@ if (focused) {
 
 // Texto
 if (string_length(text) > 0 || focused) {
+	draw_set_font(fnt_default);
     draw_set_color(make_color_rgb(92, 40, 176));
     draw_text(x - 350 , y - 22, string(text));
 } else {
+	draw_set_font(fnt_default);
 	draw_set_color(make_color_rgb(174, 136, 236));
     draw_text(x - 350 , y - 22, string(placeholder));
 }

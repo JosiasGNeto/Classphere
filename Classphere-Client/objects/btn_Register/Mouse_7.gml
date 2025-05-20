@@ -35,6 +35,12 @@ if (
 
     // Libera o buffer para evitar vazamento de memória
     buffer_delete(register_packet);
+	
+	with (ui_textbox_base) {
+        text = "";
+    }
+	
+	chk_Teacher.checked = false;
 
 } else {
     show_message("Erro: Todos os campos obrigatórios devem ser preenchidos!");
