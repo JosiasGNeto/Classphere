@@ -1,25 +1,21 @@
-// Tamanho da checkbox
-var box_size = 40;
-var is_checked = (checked);
+// Tamanho do círculo
+var radius = 25;
 
-// Muda a cor da checkbox se estiver marcada
-if (is_checked) {
-    draw_set_color(c_lime); // cor verde quando marcado
+// Se estiver marcado, cor verde; senão, branco
+if (checked) {
+    draw_set_color(make_color_rgb(92, 40, 176));
 } else {
-    draw_set_color(c_white); // cor branca padrão
+    draw_set_color(c_white);
 }
 
-// Desenha o retângulo (a caixinha da checkbox)
-draw_rectangle(x, y, x + box_size, y + box_size, false);
+// Desenha o círculo (outline)
+draw_circle(x + radius, y + radius, radius, false);
 
-// Se marcada, desenha um X
-if (is_checked) {
-    draw_set_color(c_black); // X em preto
-    draw_line(x, y, x + box_size, y + box_size);
-    draw_line(x, y + box_size, x + box_size, y);
+// Se estiver marcado, preenche o círculo com a mesma cor
+if (checked) {
+    draw_circle(x + radius, y + radius, radius - 4, true); // círculo interno preenchido (um pouco menor para borda)
 }
 
 // Cor do texto
-draw_set_color(c_black);
-draw_text(x + box_size + 8, y, "Professor");
-
+draw_set_color(c_white);
+draw_text(x + radius * 2 + 16, y + radius - string_height("Professor")/2, "Professor");
