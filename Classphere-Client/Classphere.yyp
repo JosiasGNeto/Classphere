@@ -103,8 +103,8 @@
   "resourceVersion":"2.0",
   "RoomOrderNodes":[
     {"roomId":{"name":"connecting","path":"rooms/connecting/connecting.yy",},},
-    {"roomId":{"name":"register","path":"rooms/register/register.yy",},},
     {"roomId":{"name":"login","path":"rooms/login/login.yy",},},
+    {"roomId":{"name":"register","path":"rooms/register/register.yy",},},
     {"roomId":{"name":"spawn","path":"rooms/spawn/spawn.yy",},},
   ],
   "templateType":"game",

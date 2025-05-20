@@ -23,7 +23,7 @@ var userSchema = new mongoose.Schema({
 
 userSchema.statics.register = async function(email, rg, nome, sobrenome1, sobrenome2, nascimento, professor, cb) {
     try {
-        const hashedPassword = await bcrypt.hash(rg, SALT_ROUNDS); // senha = hash do RG
+        const hashedPassword = await bcrypt.hash(rg, SALT_ROUNDS);
 
         var new_user = new User({
             username: `${nome} ${sobrenome1 || ''}`.trim(),
