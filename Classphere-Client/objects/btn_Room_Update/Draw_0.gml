@@ -5,12 +5,12 @@ if (hover || focused) {
     
     draw_set_font(fnt_default);
     draw_set_color(c_white);  // Cor do texto ao passar o mouse
-    draw_text(x - 50 , y - 20, string(text));
+    draw_text(x - 146 , y - 22, string(text));
 } else {
     // Desenhar o botão normalmente
     draw_self();
     
     draw_set_font(fnt_default);
     draw_set_color(make_color_rgb(92, 40, 176));    // Cor normal do texto
-    draw_text(x - 50 , y - 20, string(text));
+    draw_text(x - 146 , y - 22, string(text));
 }

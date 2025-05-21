@@ -1,3 +1,3 @@
-text = "Registrar Usuario"
+text = "Atualizar Usuario"
 hover = false;
 focused = false;

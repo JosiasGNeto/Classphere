@@ -1,1 +1,1 @@
-room_goto(register)
+room_goto(update)
