@@ -12,8 +12,8 @@
   "name":"btn_Register",
   "overriddenProperties":[],
   "parent":{
-    "name":"Login",
-    "path":"folders/Objects/Room Specific/Login.yy",
+    "name":"Register",
+    "path":"folders/Objects/Room Specific/CRUD/Register.yy",
   },
   "parentObjectId":null,
   "persistent":false,

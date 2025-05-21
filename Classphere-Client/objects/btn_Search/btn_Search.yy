@@ -1,17 +1,15 @@
 {
   "$GMObject":"",
-  "%Name":"chk_Teacher",
+  "%Name":"btn_Search",
   "eventList":[
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":4,"eventType":6,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":7,"eventType":6,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"chk_Teacher",
+  "name":"btn_Search",
   "overriddenProperties":[],
   "parent":{
-    "name":"Register",
-    "path":"folders/Objects/Room Specific/CRUD/Register.yy",
+    "name":"CRUD",
+    "path":"folders/Objects/Room Specific/CRUD.yy",
   },
   "parentObjectId":null,
   "persistent":false,

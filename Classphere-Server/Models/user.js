@@ -21,7 +21,7 @@ var userSchema = new mongoose.Schema({
     professor: { type: Boolean, default: false }
 });
 
-userSchema.statics.register = async function(email, rg, nome, sobrenome1, sobrenome2, nascimento, professor, cb) {
+userSchema.statics.register = async function(username, email, rg, nome, sobrenome1, sobrenome2, nascimento, professor, cb) {
     try {
         const hashedPassword = await bcrypt.hash(rg, SALT_ROUNDS);
 
@@ -63,5 +63,44 @@ userSchema.statics.login = async function(username, password, cb) {
         cb(false, null);
     }
 };
+
+userSchema.statics.getByRG = async function(rg, cb) {
+    try {
+        const user = await User.findOne({ rg: rg });
+        if (user) {
+            cb(true, user);
+        } else {
+            cb(false, null);
+        }
+    } catch (err) {
+        console.error("Erro ao buscar usuário: ", err);
+        cb(false, null);
+    }
+};
+
+userSchema.statics.updateUser = async function(rg, updatedFields, cb) {
+    try {
+        const updatedUser = await User.findOneAndUpdate(
+            { rg: rg },
+            { $set: updatedFields },
+            { new: true }
+        );
+        cb(true, updatedUser);
+    } catch (err) {
+        console.error("Erro ao atualizar usuário:", err);
+        cb(false, null);
+    }
+};
+
+userSchema.statics.deleteUser = async function(rg, cb) {
+    try {
+        await this.deleteOne({ rg: rg });
+        cb(true);
+    } catch (err) {
+        console.error("Erro ao deletar usuário:", err);
+        cb(false);
+    }
+};
+
 
 module.exports = User = gamedb.model('User', userSchema);

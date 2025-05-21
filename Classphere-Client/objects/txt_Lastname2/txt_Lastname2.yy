@@ -9,8 +9,8 @@
   "name":"txt_Lastname2",
   "overriddenProperties":[],
   "parent":{
-    "name":"Login",
-    "path":"folders/Objects/Room Specific/Login.yy",
+    "name":"Register",
+    "path":"folders/Objects/Room Specific/CRUD/Register.yy",
   },
   "parentObjectId":{
     "name":"ui_textbox_base",
