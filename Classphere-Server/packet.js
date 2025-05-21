@@ -67,17 +67,29 @@ module.exports = packet = {
 
             case "LOGIN":
                 var data = PacketModels.login.parse(datapacket);
-                User.login(data.username, data.password, function(result, user){
-                    if(result){
+                User.login(data.username, data.password, function(result, user) {
+                    if (result) {
                         c.user = user;
                         c.enterroom(c.user.current_room);
-                        c.socket.write(packet.build(["LOGIN", "TRUE", c.user.current_room, c.user.pos_x, c.user.pos_y, c.user.username]))
+
+                        // Adiciona o campo "adm" (1 para admin, 0 para usuário comum)
+                        const is_admin = user.adm ? 1 : 0;
+
+                        c.socket.write(packet.build([
+                            "LOGIN",
+                            "TRUE",
+                            c.user.current_room,
+                            c.user.pos_x,
+                            c.user.pos_y,
+                            c.user.username,
+                            is_admin // 👈 Envia a flag de admin
+                        ]));
+                    } else {
+                        c.socket.write(packet.build(["LOGIN", "FALSE"]));
                     }
-                    else{
-                        c.socket.write(packet.build(["LOGIN", "FALSE"]))
-                    }
-                })
+                });
                 break;
+
 
             case "REGISTER":
                 var data = PacketModels.register.parse(datapacket);
@@ -90,6 +102,7 @@ module.exports = packet = {
                     data.sobrenome2,
                     data.nascimento,
                     data.professor === 1,
+                    data.adm === 1,
                     function(result) {
                         if (result) {
                             c.socket.write(packet.build(["REGISTER", "TRUE"]));

@@ -8,8 +8,8 @@
   "name":"btn_Delete",
   "overriddenProperties":[],
   "parent":{
-    "name":"CRUD",
-    "path":"folders/Objects/Room Specific/CRUD.yy",
+    "name":"Update",
+    "path":"folders/Objects/Room Specific/CRUD/Update.yy",
   },
   "parentObjectId":null,
   "persistent":false,

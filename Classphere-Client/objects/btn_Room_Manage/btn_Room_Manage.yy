@@ -1,15 +1,15 @@
 {
   "$GMObject":"",
-  "%Name":"btn_Update",
+  "%Name":"btn_Room_Manage",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":7,"eventType":6,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"btn_Update",
+  "name":"btn_Room_Manage",
   "overriddenProperties":[],
   "parent":{
-    "name":"Update",
-    "path":"folders/Objects/Room Specific/CRUD/Update.yy",
+    "name":"Navigation",
+    "path":"folders/Objects/Room Specific/Navigation.yy",
   },
   "parentObjectId":null,
   "persistent":false,

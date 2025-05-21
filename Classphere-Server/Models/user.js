@@ -18,10 +18,12 @@ var userSchema = new mongoose.Schema({
     sobrenome1: { type: String, required: true },
     sobrenome2: { type: String },
     nascimento: { type: Date, required: true },
-    professor: { type: Boolean, default: false }
+    professor: { type: Boolean, default: false },
+
+    adm: { type: Boolean, default: false }
 });
 
-userSchema.statics.register = async function(username, email, rg, nome, sobrenome1, sobrenome2, nascimento, professor, cb) {
+userSchema.statics.register = async function(username, email, rg, nome, sobrenome1, sobrenome2, nascimento, professor, adm, cb) {
     try {
         const hashedPassword = await bcrypt.hash(rg, SALT_ROUNDS);
 
@@ -35,6 +37,7 @@ userSchema.statics.register = async function(username, email, rg, nome, sobrenom
             sobrenome2,
             nascimento: new Date(nascimento),
             professor,
+            adm,
 
             sprite: "spr_Player",
             current_room: maps[config.starting_zone].room,
@@ -78,19 +81,27 @@ userSchema.statics.getByRG = async function(rg, cb) {
     }
 };
 
-userSchema.statics.updateUser = async function(rg, updatedFields, cb) {
+userSchema.statics.updateUser = async function (rg, updatedFields, cb) {
     try {
+        // Converte data se necessário
+        if (updatedFields.nascimento) {
+            const [dd, mm, yyyy] = updatedFields.nascimento.split("-");
+            updatedFields.nascimento = new Date(`${yyyy}-${mm}-${dd}`);
+        }
+
         const updatedUser = await User.findOneAndUpdate(
             { rg: rg },
             { $set: updatedFields },
             { new: true }
         );
+
         cb(true, updatedUser);
     } catch (err) {
         console.error("Erro ao atualizar usuário:", err);
         cb(false, null);
     }
 };
+
 
 userSchema.statics.deleteUser = async function(rg, cb) {
     try {

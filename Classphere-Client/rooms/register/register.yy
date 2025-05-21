@@ -14,6 +14,7 @@
     {"name":"inst_6EC32651","path":"rooms/register/register.yy",},
     {"name":"inst_3DAEFD8F","path":"rooms/register/register.yy",},
     {"name":"inst_4D0D1D45","path":"rooms/register/register.yy",},
+    {"name":"inst_427AC9B6","path":"rooms/register/register.yy",},
   ],
   "isDnd":false,
   "layers":[
@@ -26,6 +27,7 @@
         {"$GMRInstance":"v2","%Name":"inst_454F8B79","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_454F8B79","objectId":{"name":"txt_RG","path":"objects/txt_RG/txt_RG.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0211529,"scaleY":2.4,"x":1648.0461,"y":784.0,},
         {"$GMRInstance":"v2","%Name":"inst_6EC32651","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_6EC32651","objectId":{"name":"txt_Email","path":"objects/txt_Email/txt_Email.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":2.22,"scaleY":2.4,"x":1440.0,"y":656.0,},
         {"$GMRInstance":"v2","%Name":"inst_4D0D1D45","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_4D0D1D45","objectId":{"name":"chk_Teacher","path":"objects/chk_Teacher/chk_Teacher.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":4.0,"scaleY":4.0,"x":1056.0,"y":864.0,},
+        {"$GMRInstance":"v2","%Name":"inst_427AC9B6","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_427AC9B6","objectId":{"name":"btn_Room_Manage","path":"objects/btn_Room_Manage/btn_Room_Manage.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":9.0,"scaleY":5.0,"x":1696.0,"y":64.0,},
       ],"layers":[],"name":"Instances","properties":[],"resourceType":"GMRInstanceLayer","resourceVersion":"2.0","userdefinedDepth":false,"visible":true,},
     {"$GMRBackgroundLayer":"","%Name":"Background","animationFPS":30.0,"animationSpeedType":0,"colour":4294967295,"depth":100,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"hspeed":0.0,"htiled":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"layers":[],"name":"Background","properties":[],"resourceType":"GMRBackgroundLayer","resourceVersion":"2.0","spriteId":{"name":"Register_Form","path":"sprites/Register_Form/Register_Form.yy",},"stretch":false,"userdefinedAnimFPS":false,"userdefinedDepth":false,"visible":true,"vspeed":0.0,"vtiled":false,"x":0,"y":0,},
   ],
