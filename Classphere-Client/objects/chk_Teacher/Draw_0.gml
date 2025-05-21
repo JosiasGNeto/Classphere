@@ -13,7 +13,7 @@ draw_circle(x + radius, y + radius, radius, false);
 
 // Se estiver marcado, preenche o círculo com a mesma cor
 if (checked) {
-    draw_circle(x + radius, y + radius, radius - 4, true); // círculo interno preenchido (um pouco menor para borda)
+    draw_circle(x + radius, y + radius, radius - 10, true); // círculo interno preenchido (um pouco menor para borda)
 }
 
 // Cor do texto

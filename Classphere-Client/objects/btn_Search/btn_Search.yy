@@ -11,7 +11,10 @@
     "name":"Update",
     "path":"folders/Objects/Room Specific/CRUD/Update.yy",
   },
-  "parentObjectId":null,
+  "parentObjectId":{
+    "name":"ui_button_base",
+    "path":"objects/ui_button_base/ui_button_base.yy",
+  },
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,

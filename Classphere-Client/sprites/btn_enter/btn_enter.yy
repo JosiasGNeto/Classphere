@@ -2,7 +2,7 @@
   "$GMSprite":"",
   "%Name":"btn_enter",
   "bboxMode":0,
-  "bbox_bottom":39,
+  "bbox_bottom":38,
   "bbox_left":0,
   "bbox_right":346,
   "bbox_top":0,
