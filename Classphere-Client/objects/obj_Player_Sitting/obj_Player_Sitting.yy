@@ -1,13 +1,13 @@
 {
   "$GMObject":"",
-  "%Name":"obj_Blocked",
+  "%Name":"obj_Player_Sitting",
   "eventList":[],
   "managed":true,
-  "name":"obj_Blocked",
+  "name":"obj_Player_Sitting",
   "overriddenProperties":[],
   "parent":{
-    "name":"System",
-    "path":"folders/Objects/System.yy",
+    "name":"Players",
+    "path":"folders/Objects/Players.yy",
   },
   "parentObjectId":null,
   "persistent":false,
@@ -26,11 +26,11 @@
   "properties":[],
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
-  "solid":true,
+  "solid":false,
   "spriteId":{
-    "name":"spr_Blocked",
-    "path":"sprites/spr_Blocked/spr_Blocked.yy",
+    "name":"spr_Student_Sitting",
+    "path":"sprites/spr_Student_Sitting/spr_Student_Sitting.yy",
   },
   "spriteMaskId":null,
-  "visible":false,
+  "visible":true,
 }
