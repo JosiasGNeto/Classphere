@@ -1,3 +1,6 @@
-event_inherited();
+text = "Entrar"
+hover = false;
 
-text = "Login"
+tab_next = txt_Username;
+
+focused = false;

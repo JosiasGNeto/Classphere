@@ -1,5 +1,5 @@
-var Parser = require('binary-parser').Parser
-var StringOptions = {length: 99, zeroTerminated:true};
+var Parser = require('binary-parser').Parser;
+var StringOptions = { length: 99, zeroTerminated: true };
 
 module.exports = PacketModels = {
 
@@ -9,15 +9,38 @@ module.exports = PacketModels = {
     login: new Parser().skip(1)
         .string("command", StringOptions)
         .string("username", StringOptions)
-        .string("password", StringOptions),  //Lembrar de tentar criptografar isso!!
+        .string("password", StringOptions),
 
     register: new Parser().skip(1)
         .string("command", StringOptions)
-        .string("username", StringOptions)
-        .string("password", StringOptions),  //Lembrar de tentar criptografar isso!!    
+        .string("email", StringOptions)
+        .string("rg", StringOptions)
+        .string("nome", StringOptions)
+        .string("sobrenome1", StringOptions)
+        .string("sobrenome2", StringOptions)
+        .string("nascimento", StringOptions)
+        .uint8("professor"),
 
     pos: new Parser().skip(1)
         .string("command", StringOptions)
-        .int32le("target_x", StringOptions)
-        .int32le("target_y", StringOptions)
-}
+        .int32le("target_x")
+        .int32le("target_y"),
+
+    get_user_by_rg: new Parser().skip(1)
+        .string("command", StringOptions)
+        .string("rg", StringOptions),
+
+    update_user: new Parser().skip(1)
+        .string("command", StringOptions)
+        .string("rg", StringOptions)
+        .string("nome", StringOptions)
+        .string("sobrenome1", StringOptions)
+        .string("sobrenome2", StringOptions)
+        .string("email", StringOptions)
+        .string("nascimento", StringOptions)
+        .uint8("professor"),
+
+    delete_user: new Parser().skip(1)
+        .string("command", StringOptions)
+        .string("rg", StringOptions)
+};

@@ -3,41 +3,41 @@ var zeroBuffer = new Buffer.from('00', 'hex');
 module.exports = packet = {
 
     //params: an array of JS objects to be turned into buffers.
-    build: function(params){
-
+    build: function(params) {
         var packetParts = [];
         var packetSize = 0;
 
-        params.forEach(function(param){
+        params.forEach(function(param) {
             var buffer;
 
-            if(typeof param === 'string'){
+            if (typeof param === 'string') {
                 buffer = Buffer.from(param, 'utf8');
-                buffer = Buffer.concat([buffer, zeroBuffer], buffer.length + 1)
+                buffer = Buffer.concat([buffer, zeroBuffer], buffer.length + 1);
             }
-            else if(typeof param === 'number'){
+            else if (typeof param === 'number') {
                 buffer = Buffer.alloc(2);
                 buffer.writeUInt16LE(param, 0);
             }
             else {
-                console.log("WARNING: Unknown data type in packet builder!");
+                console.log("WARNING: Unknown data type in packet builder!", param);
+                // Para evitar erro, crie um buffer vazio ou de tamanho 0:
+                buffer = Buffer.alloc(0);
             }
 
             packetSize += buffer.length;
             packetParts.push(buffer);
-
-        })
+        });
 
         var dataBuffer = Buffer.concat(packetParts, packetSize);
 
         var size = Buffer.alloc(1);
-        size.writeUInt8(dataBuffer.length + 1, 0);        
+        size.writeUInt8(dataBuffer.length + 1, 0);
 
         var finalPacket = Buffer.concat([size, dataBuffer], size.length + dataBuffer.length);
 
         return finalPacket;
-
     },
+
 
     //Parse a packet to be handled for a client
     parse: function(c, data){
@@ -67,38 +67,58 @@ module.exports = packet = {
 
             case "LOGIN":
                 var data = PacketModels.login.parse(datapacket);
-                User.login(data.username, data.password, function(result, user){
-                    if(result){
+                User.login(data.username, data.password, function(result, user) {
+                    if (result) {
                         c.user = user;
                         c.enterroom(c.user.current_room);
-                        c.socket.write(packet.build(["LOGIN", "TRUE", c.user.current_room, c.user.pos_x, c.user.pos_y, c.user.username]))
-                    }
-                    else{
-                        c.socket.write(packet.build(["LOGIN", "FALSE"]))
-                    }
-                })
-                break;
 
-            case "REGISTER":
-                
-                var data = PacketModels.register.parse(datapacket);    
-                User.register(data.username, data.password, function(result){
-                    if(result){
-                        c.socket.write(packet.build(["REGISTER", "TRUE"]));
-                    }
-                    else{
-                        c.socket.write(packet.build(["REGISTER", "FALSE"]));
+                        // Adiciona o campo "adm" (1 para admin, 0 para usuário comum)
+                        const is_admin = user.adm ? 1 : 0;
+
+                        c.socket.write(packet.build([
+                            "LOGIN",
+                            "TRUE",
+                            c.user.current_room,
+                            c.user.pos_x,
+                            c.user.pos_y,
+                            c.user.username,
+                            is_admin // 👈 Envia a flag de admin
+                        ]));
+                    } else {
+                        c.socket.write(packet.build(["LOGIN", "FALSE"]));
                     }
                 });
-
                 break;
+
+
+            case "REGISTER":
+                var data = PacketModels.register.parse(datapacket);
+                User.register(
+                    data.username,
+                    data.email,
+                    data.rg,
+                    data.nome,
+                    data.sobrenome1,
+                    data.sobrenome2,
+                    data.nascimento,
+                    data.professor === 1,
+                    data.adm === 1,
+                    function(result) {
+                        if (result) {
+                            c.socket.write(packet.build(["REGISTER", "TRUE"]));
+                        } else {
+                            c.socket.write(packet.build(["REGISTER", "FALSE"]));
+                        }
+                    }
+                );
+                break;
+
 
             case "POS":
                 var data = PacketModels.pos.parse(datapacket);
                 c.user.pos_x = data.target_x;
                 c.user.pos_y = data.target_y;
             
-                // Se já está salvando, pula o save atual
                 if (c.user._isSaving) break;
             
                 c.user._isSaving = true;
@@ -114,6 +134,84 @@ module.exports = packet = {
                 c.broadcastroom(packet.build(["POS", c.user.username, data.target_x, data.target_y]));
                 console.log(data);
                 break;
+
+            case "USER_DATA":
+                var data = PacketModels.get_user_by_rg.parse(datapacket);
+                User.getByRG(data.rg, (success, user) => {
+                    if (success && user) {
+                        // Garanta que todos os campos são strings ou números válidos
+                        var nome = user.nome || "";
+                        var sobrenome1 = user.sobrenome1 || "";
+                        var sobrenome2 = user.sobrenome2 || "";
+                        var email = user.email || "";
+                        var nascimento = user.nascimento || "";
+                        var professor = user.professor ? 1 : 0;
+
+                        var nascimentoStr = "";
+
+                        if (user.nascimento) {
+                            // Se for objeto Date, converte para string
+                            if (user.nascimento instanceof Date) {
+                                nascimentoStr = user.nascimento.toISOString().substring(0, 10); // YYYY-MM-DD
+                            } else {
+                                nascimentoStr = String(user.nascimento);
+                            }
+                        }
+
+                        c.socket.write(packet.build([
+                            "USER_DATA",
+                            nome || "",
+                            sobrenome1 || "",
+                            sobrenome2 || "",
+                            email || "",
+                            nascimentoStr,
+                            professor ? 1 : 0
+                        ]));
+
+                    } else {
+                        c.socket.write(packet.build(["USER_NOT_FOUND"]));
+                    }
+                });
+                break;
+
+            case "UPDATE_USER":
+                var data = PacketModels.update_user.parse(datapacket);
+                User.updateUser(
+                    data.rg,
+                    {
+                        nome: data.nome,
+                        sobrenome1: data.sobrenome1,
+                        sobrenome2: data.sobrenome2,
+                        email: data.email,
+                        nascimento: data.nascimento,
+                        professor: data.professor === 1
+                    },
+                    function(result) {
+                        if (result) {
+                            c.socket.write(packet.build(["UPDATE_USER", "TRUE"]));
+                        } else {
+                            c.socket.write(packet.build(["UPDATE_USER", "FALSE"]));
+                        }
+                    }
+                );
+                break;
+
+            case "DELETE_USER":
+                var data = PacketModels.delete_user.parse(datapacket);
+                console.log("Tentando deletar RG:", data.rg);
+                User.deleteUser(data.rg, function(result) {
+                    console.log("Resultado da exclusão:", result);
+                    if (result) {
+                        c.socket.write(packet.build(["DELETE_USER", "TRUE"]));
+                    } else {
+                        c.socket.write(packet.build(["DELETE_USER", "FALSE"]));
+                    }
+                });
+                break;
+
+
+
+
         }   
 
     }

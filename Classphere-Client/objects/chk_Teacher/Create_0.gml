@@ -1,0 +1,2 @@
+checked = false;
+hover = false;

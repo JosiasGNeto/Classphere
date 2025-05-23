@@ -1,3 +1,2 @@
-event_inherited()
-
-text = "Register"
+text = "Registrar"
+hover = false;

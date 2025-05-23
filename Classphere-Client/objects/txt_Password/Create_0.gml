@@ -1,3 +1,4 @@
 event_inherited();
 
-placeholder = "Password";
+placeholder = "********";
+tab_next = btn_Login;

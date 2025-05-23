@@ -1,3 +1,4 @@
 event_inherited();
 
-placeholder = "Username";
+placeholder = "Nome";
+tab_next = txt_Password;
