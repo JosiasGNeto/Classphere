@@ -69,21 +69,32 @@ function handle_packet() {
             }
             break;
 
-        case "USER_DATA":
-            var nome        = buffer_read(argument0, buffer_string);
-            var sobrenome1  = buffer_read(argument0, buffer_string);
-            var sobrenome2  = buffer_read(argument0, buffer_string);
-            var email       = buffer_read(argument0, buffer_string);
-            var nascimento  = buffer_read(argument0, buffer_string);
-            var is_prof     = buffer_read(argument0, buffer_u8);
+		case "USER_DATA":
+		    var nome        = buffer_read(argument0, buffer_string);
+		    var sobrenome1  = buffer_read(argument0, buffer_string);
+		    var sobrenome2  = buffer_read(argument0, buffer_string);
+		    var email       = buffer_read(argument0, buffer_string);
+		    var nascimento_original  = buffer_read(argument0, buffer_string);
+		    var is_prof     = buffer_read(argument0, buffer_u8);
+    
+		    // Assume que o servidor envia YYYY-MM-DD
+		    var partes = string_split(nascimento_original, "-");
+		    var nascimento_formatado;
+		    if (array_length(partes) == 3) {
+		        // Converte para DD-MM-YYYY para exibição
+		        nascimento_formatado = partes[2] + "-" + partes[1] + "-" + partes[0];
+		    } else {
+		        nascimento_formatado = nascimento_original;
+		    }
 
-            txt_Name.text        = nome;
-            txt_Lastname1.text   = sobrenome1;
-            txt_Lastname2.text   = sobrenome2;
-            txt_Email.text       = email;
-            txt_Birth.text       = nascimento;
-            chk_Teacher.checked  = (is_prof == 1);
-            break;
+		    txt_Name.text        = nome;
+		    txt_Lastname1.text   = sobrenome1;
+		    txt_Lastname2.text   = sobrenome2;
+		    txt_Email.text       = email;
+		    txt_Birth.text       = nascimento_formatado;
+		    chk_Teacher.checked  = (is_prof == 1);
+		    break;
+
 
         case "USER_NOT_FOUND":
             show_message("Usuário não encontrado.");

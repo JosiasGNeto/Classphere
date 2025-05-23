@@ -1,32 +1,37 @@
 draw_self();
 
-// Se estiver com foco, desenha retângulo com borda
-if (focused) {
-    var w = 192;
-    var h = 44;
-    var border_thickness = 5;
-    
-    // Escolha a cor da borda aqui:
-    var border_color = make_color_rgb(124, 61, 225);
+var border_thickness = 5;
+var border_color = make_color_rgb(124, 61, 225);
+var is_register = (room == register);
 
-    // Retângulo maior (borda)
+var x_offset = is_register ? 190 : 390;
+var w = is_register ? 192 : 384;
+var h = 44;
+
+// Retângulo maior (borda)
+if (focused) {
     draw_set_color(border_color);
-    draw_roundrect_ext(x - 190 - border_thickness, y - 48 - border_thickness,
+    draw_roundrect_ext(x - x_offset - border_thickness, y - 48 - border_thickness,
                        x + w + border_thickness, y + h + border_thickness,
                        42, 42, false);
-
-    // Retângulo menor (fundo real)
-    draw_set_color(c_white); // Cor de fundo
-    draw_roundrect_ext(x - 190, y - 49, x + w, y + h, 35, 35, false);
-    
-    draw_set_color(c_white); // Reset
 }
 
-// Texto
-if (string_length(text) > 0 || focused) {
-    draw_set_color(make_color_rgb(92, 40, 176));
-    draw_text(x - 160 , y - 22, string(text));
+// Retângulo menor (fundo real)
+draw_set_color(c_white);
+draw_roundrect_ext(x - x_offset, y - 49, x + w, y + h, 35, 35, false);
+
+// Texto ou Placeholder
+var text_x = is_register ? x - 160 : x - 350;
+var draw_color = make_color_rgb(92, 40, 176);
+var placeholder_color = make_color_rgb(174, 136, 236);
+
+if (string_length(text) > 0) {
+    draw_set_color(draw_color);
+    draw_text(text_x, y - 22, string(text));
 } else {
-	draw_set_color(make_color_rgb(174, 136, 236));
-    draw_text(x - 160 , y - 22, string(placeholder));
+    draw_set_color(placeholder_color);
+    draw_text(text_x, y - 22, string(placeholder));
 }
+
+// Reset cor
+draw_set_color(c_white);

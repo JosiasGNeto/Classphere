@@ -23,6 +23,23 @@ var userSchema = new mongoose.Schema({
     adm: { type: Boolean, default: false }
 });
 
+function parseDDMMYYYY(dateString) {
+    const dateRegex = /^(\d{2})-(\d{2})-(\d{4})$/;
+    if (!dateRegex.test(dateString)) {
+        throw new Error("Formato de data inválido. Use DD-MM-YYYY");
+    }
+    
+    const [day, month, year] = dateString.split('-');
+    
+    const utcDate = new Date(Date.UTC(year, month - 1, day));
+    
+    if (isNaN(utcDate.getTime())) {
+        throw new Error("Data inválida");
+    }
+    
+    return utcDate;
+}
+
 userSchema.statics.register = async function(username, email, rg, nome, sobrenome1, sobrenome2, nascimento, professor, adm, cb) {
     try {
         const hashedPassword = await bcrypt.hash(rg, SALT_ROUNDS);
@@ -35,10 +52,9 @@ userSchema.statics.register = async function(username, email, rg, nome, sobrenom
             nome,
             sobrenome1,
             sobrenome2,
-            nascimento: new Date(nascimento),
+            nascimento: parseDDMMYYYY(nascimento),
             professor,
             adm,
-
             sprite: "spr_Player",
             current_room: maps[config.starting_zone].room,
             pos_x: maps[config.starting_zone].start_x,
@@ -83,10 +99,14 @@ userSchema.statics.getByRG = async function(rg, cb) {
 
 userSchema.statics.updateUser = async function (rg, updatedFields, cb) {
     try {
-        // Converte data se necessário
+        if (updatedFields.nome || updatedFields.sobrenome1) {
+            const nome = updatedFields.nome || "";
+            const sobrenome1 = updatedFields.sobrenome1 || "";
+            updatedFields.username = `${nome} ${sobrenome1}`.trim();
+        }
+
         if (updatedFields.nascimento) {
-            const [dd, mm, yyyy] = updatedFields.nascimento.split("-");
-            updatedFields.nascimento = new Date(`${yyyy}-${mm}-${dd}`);
+            updatedFields.nascimento = parseDDMMYYYY(updatedFields.nascimento);
         }
 
         const updatedUser = await User.findOneAndUpdate(

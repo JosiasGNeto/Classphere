@@ -25,33 +25,14 @@ if (
         buffer_write(register_packet, buffer_string, "");
     }
 
-    var raw_birth = txt_Birth.text;
+	var raw_birth = txt_Birth.text;
 	if (string_length(raw_birth) == 10 && string_char_at(raw_birth, 3) == "-" && string_char_at(raw_birth, 6) == "-") {
-	    var dd = real(string_copy(raw_birth, 1, 2));
-	    var mm = real(string_copy(raw_birth, 4, 2));
-	    var yyyy = real(string_copy(raw_birth, 7, 4));
-    
-	    var dias_no_mes = [31,28,31,30,31,30,31,31,30,31,30,31];
-
-	    // Verifica ano bissexto
-	    if ((yyyy mod 4 == 0 && yyyy mod 100 != 0) || (yyyy mod 400 == 0)) {
-	        dias_no_mes[1] = 29;
-	    }
-
-	    // Validações
-	    if (mm >= 1 && mm <= 12 && dd >= 1 && dd <= dias_no_mes[mm - 1]) {
-	        var converted_birth = string(yyyy) + "-" + string_format(mm, 2, 0) + "-" + string_format(dd, 2, 0);
-	        buffer_write(register_packet, buffer_string, converted_birth);
-	    } else {
-	        show_message("Erro: Data inválida. Verifique o dia e o mês.");
-	        buffer_delete(register_packet);
-	        return;
-	    }
-
+		// Já está no formato DD-MM-YYYY, envia diretamente
+		buffer_write(register_packet, buffer_string, raw_birth);
 	} else {
-	    show_message("Erro: Data inválida. Use o formato DD-MM-AAAA.");
-	    buffer_delete(register_packet);
-	    return;
+		show_message("Erro: Data inválida. Use o formato DD-MM-AAAA.");
+		buffer_delete(register_packet);
+		return;
 	}
 
 	
