@@ -28,6 +28,16 @@ var placeholder_color = make_color_rgb(174, 136, 236);
 if (string_length(text) > 0) {
     draw_set_color(draw_color);
     draw_text(text_x, y - 22, string(text));
+	if (focused && cursor_visible) {
+	    var text_width = string_width(text);
+	    var cursor_x = x - 350 + text_width + 2; // +2 para dar um pequeno espaço do texto
+	    var cursor_y1 = y - 22;
+	    var cursor_y2 = cursor_y1 + string_height("A") - 4;
+
+	    draw_set_color(make_color_rgb(92, 40, 176)); // mesma cor do texto
+	    draw_line(cursor_x, cursor_y1, cursor_x, cursor_y2);
+	}
+	
 } else {
     draw_set_color(placeholder_color);
     draw_text(text_x, y - 22, string(placeholder));
