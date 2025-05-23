@@ -21,3 +21,8 @@ buffer_write(packet, buffer_u8, chk_Teacher.checked ? 1 : 0);
 
 network_write(Network.socket, packet);
 buffer_delete(packet);
+
+with (ui_textbox_base) {
+	text = "";
+}
+chk_Teacher.checked = false;
