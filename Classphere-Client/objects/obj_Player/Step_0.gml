@@ -2,6 +2,8 @@
 // Step Event do personagem
 // =========================
 
+if (!active) exit;
+
 var dx = target_x - x;
 var dy = target_y - y;
 
