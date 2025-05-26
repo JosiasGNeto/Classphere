@@ -209,8 +209,23 @@ module.exports = packet = {
                 });
                 break;
 
+            case "SIT":
+                console.log(`[SIT] ${c.user.username} está sentando em (${c.user.pos_x}, ${c.user.pos_y})`);
+                c.broadcastroom(packet.build([
+                    "SIT",
+                    c.user.username,
+                    c.user.pos_x,
+                    c.user.pos_y
+                ]));
+                break;
 
-
+            case "UNSIT":
+                console.log(`[UNSIT] ${c.user.username} levantou`);
+                c.broadcastroom(packet.build([
+                    "UNSIT",
+                    c.user.username
+                ]));
+                break;
 
         }   
 

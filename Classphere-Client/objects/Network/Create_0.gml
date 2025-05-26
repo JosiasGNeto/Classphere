@@ -6,6 +6,7 @@ persistent = true;
 savedbuffer = buffer_create(1, buffer_grow, 1);
 reading = 0;
 cutbuffer = buffer_create(1, buffer_grow, 1);
+username = "";
 
 ///Initiate the socket
 socket = network_create_socket(network_socket_tcp);
