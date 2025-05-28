@@ -1,13 +1,13 @@
 {
   "$GMObject":"",
-  "%Name":"obj_Table",
+  "%Name":"obj_Chair",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":4,"eventType":6,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"obj_Table",
+  "name":"obj_Chair",
   "overriddenProperties":[],
   "parent":{
     "name":"Interactions",
@@ -30,10 +30,10 @@
   "properties":[],
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
-  "solid":true,
+  "solid":false,
   "spriteId":{
-    "name":"spr_Table",
-    "path":"sprites/spr_Table/spr_Table.yy",
+    "name":"spr_Chair",
+    "path":"sprites/spr_Chair/spr_Chair.yy",
   },
   "spriteMaskId":null,
   "visible":true,
