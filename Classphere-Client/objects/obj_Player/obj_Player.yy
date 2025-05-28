@@ -11,10 +11,13 @@
   "name":"obj_Player",
   "overriddenProperties":[],
   "parent":{
-    "name":"Players",
-    "path":"folders/Objects/Players.yy",
+    "name":"Students",
+    "path":"folders/Objects/Players/Students.yy",
   },
-  "parentObjectId":null,
+  "parentObjectId":{
+    "name":"obj_PlayerBase",
+    "path":"objects/obj_PlayerBase/obj_PlayerBase.yy",
+  },
   "persistent":true,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,

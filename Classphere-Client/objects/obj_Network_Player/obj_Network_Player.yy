@@ -10,8 +10,8 @@
   "name":"obj_Network_Player",
   "overriddenProperties":[],
   "parent":{
-    "name":"Players",
-    "path":"folders/Objects/Players.yy",
+    "name":"Students",
+    "path":"folders/Objects/Players/Students.yy",
   },
   "parentObjectId":null,
   "persistent":false,
