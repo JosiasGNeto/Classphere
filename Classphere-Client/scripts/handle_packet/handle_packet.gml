@@ -9,29 +9,38 @@ function handle_packet() {
             show_debug_message("Bem vindo! @" + server_time);
             break;
         
-        case "LOGIN":
-            status = buffer_read(argument0, buffer_string);
-            if (status == "TRUE") {
-                target_room = buffer_read(argument0, buffer_string);
-                target_x = buffer_read(argument0, buffer_u16);
-                target_y = buffer_read(argument0, buffer_u16);
-                name = buffer_read(argument0, buffer_string);
-				Network.username = name;
-                var is_admin = buffer_read(argument0, buffer_u8);
+		case "LOGIN":
+		    status = buffer_read(argument0, buffer_string);
+		    if (status == "TRUE") {
+		        target_room = buffer_read(argument0, buffer_string);
+		        target_x = buffer_read(argument0, buffer_u16);
+		        target_y = buffer_read(argument0, buffer_u16);
+		        name = buffer_read(argument0, buffer_string);
+		        Network.username = name;
 
-                if (is_admin == 1) {
-                    room_goto(manage);
-                } else {
-                    room_goto(spawn);
-                    with (instance_create_depth(target_x, target_y, 1, obj_Player)) {
-                        name = other.name;
-                    }
-                }
+		        var is_admin = buffer_read(argument0, buffer_u16);
+		        var is_teacher = buffer_read(argument0, buffer_u16);
 
-            } else {
-                show_message("Usuário ou senha incorreto!");
-            }
-            break;
+
+		        if (is_admin == 1) {
+		            room_goto(manage);
+		        } else {
+		            room_goto(spawn);
+
+		            var player_obj = is_teacher == 1 ? obj_Teacher : obj_Player;
+
+		            with (instance_create_depth(target_x, target_y, 1, player_obj)) {
+						show_debug_message("is_teacher = " + string(is_teacher));
+
+		                name = other.name;
+		            }
+		        }
+
+		    } else {
+		        show_message("Usuário ou senha incorreto!");
+		    }
+		    break;
+
 
         case "REGISTER":
             status = buffer_read(argument0, buffer_string);
@@ -42,29 +51,42 @@ function handle_packet() {
             }
             break;
 
-        case "POS":
-            username = buffer_read(argument0, buffer_string);
-            target_x = buffer_read(argument0, buffer_u16);
-            target_y = buffer_read(argument0, buffer_u16);
+		case "POS":
+		    username    = buffer_read(argument0, buffer_string);
+		    target_x    = buffer_read(argument0, buffer_u16);
+		    target_y    = buffer_read(argument0, buffer_u16);
+		    is_teacher  = buffer_read(argument0, buffer_u8); // <- novo campo vindo do servidor
 
-            foundPlayer = -1;
-            with (obj_Network_Player) {
-                if (name == other.username) {
-                    other.foundPlayer = id;
-                }
-            }
+		    // Primeiro tenta encontrar se o jogador já existe na sala
+		    foundPlayer = -1;
+		    with (obj_Network_Player) {
+		        if (name == other.username) {
+		            other.foundPlayer = id;
+		        }
+		    }
+		    with (obj_Network_Teacher) {
+		        if (name == other.username) {
+		            other.foundPlayer = id;
+		        }
+		    }
 
-            if (foundPlayer != -1) {
-                with (foundPlayer) {
-                    target_x = other.target_x;
-                    target_y = other.target_y;
-                }
-            } else {
-                with (instance_create_depth(target_x, target_y, 1, obj_Network_Player)) {
-                    name = other.username;
-                }
-            }
-            break;
+		    // Se encontrou, atualiza a posição
+		    if (foundPlayer != -1) {
+		        with (foundPlayer) {
+		            target_x = other.target_x;
+		            target_y = other.target_y;
+		        }
+		    } 
+		    // Senão, cria com o objeto correto com base em is_teacher
+		    else {
+		        var player_obj = is_teacher == 1 ? obj_Network_Teacher : obj_Network_Player;
+
+		        with (instance_create_depth(target_x, target_y, 1, player_obj)) {
+		            name = other.username;
+		        }
+		    }
+		    break;
+
 
 		case "SIT":
 		    var username = buffer_read(argument0, buffer_string);

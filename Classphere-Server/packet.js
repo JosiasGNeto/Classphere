@@ -72,8 +72,8 @@ module.exports = packet = {
                         c.user = user;
                         c.enterroom(c.user.current_room);
 
-                        // Adiciona o campo "adm" (1 para admin, 0 para usuário comum)
                         const is_admin = user.adm ? 1 : 0;
+                        const is_teacher = user.professor ? 1 : 0;
 
                         c.socket.write(packet.build([
                             "LOGIN",
@@ -82,13 +82,15 @@ module.exports = packet = {
                             c.user.pos_x,
                             c.user.pos_y,
                             c.user.username,
-                            is_admin // 👈 Envia a flag de admin
+                            is_admin,
+                            is_teacher
                         ]));
                     } else {
                         c.socket.write(packet.build(["LOGIN", "FALSE"]));
                     }
                 });
                 break;
+
 
 
             case "REGISTER":
@@ -116,6 +118,7 @@ module.exports = packet = {
 
             case "POS":
                 var data = PacketModels.pos.parse(datapacket);
+                const is_teacher = c.user.professor ? 1 : 0;
                 c.user.pos_x = data.target_x;
                 c.user.pos_y = data.target_y;
             
@@ -131,7 +134,7 @@ module.exports = packet = {
                         c.user._isSaving = false;
                     });
             
-                c.broadcastroom(packet.build(["POS", c.user.username, data.target_x, data.target_y]));
+                c.broadcastroom(packet.build(["POS", c.user.username, data.target_x, data.target_y, is_teacher]));
                 console.log(data);
                 break;
 

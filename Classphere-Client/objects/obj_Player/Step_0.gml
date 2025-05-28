@@ -29,7 +29,7 @@ if (!moving) {
     var new_y = target_y;
 
 	if (keyboard_check(ord("A"))) {
-	    new_x -= 32;
+	    new_x -= 8;
 	    moved = true;
 	    last_direction = "left";
 	    sprite_index = spr_Student_Walking_Left;
@@ -37,7 +37,7 @@ if (!moving) {
 	    event_user(0);
 	}
 	else if (keyboard_check(ord("D"))) {
-	    new_x += 32;
+	    new_x += 8;
 	    moved = true;
 	    last_direction = "right";
 	    sprite_index = spr_Student_Walking_Right;
@@ -45,7 +45,7 @@ if (!moving) {
 	    event_user(0);
 	}
 	else if (keyboard_check(ord("W"))) {
-	    new_y -= 32;
+	    new_y -= 8;
 	    moved = true;
 	    last_direction = "up";
 	    sprite_index = spr_Student_Walking_Up;
@@ -53,7 +53,7 @@ if (!moving) {
 	    event_user(0);
 	}
 	else if (keyboard_check(ord("S"))) {
-	    new_y += 32;
+	    new_y += 8;
 	    moved = true;
 	    last_direction = "down";
 	    sprite_index = spr_Student_Walking_Down;
