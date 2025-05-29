@@ -1,13 +1,12 @@
 {
   "$GMObject":"",
-  "%Name":"obj_Chair",
+  "%Name":"obj_Teacher_Table",
   "eventList":[
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":4,"eventType":6,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"obj_Chair",
+  "name":"obj_Teacher_Table",
   "overriddenProperties":[],
   "parent":{
     "name":"Interactions",
@@ -32,8 +31,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_Chair",
-    "path":"sprites/spr_Chair/spr_Chair.yy",
+    "name":"spr_Teacher_Table",
+    "path":"sprites/spr_Teacher_Table/spr_Teacher_Table.yy",
   },
   "spriteMaskId":null,
   "visible":true,

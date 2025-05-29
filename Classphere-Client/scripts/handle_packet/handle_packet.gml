@@ -129,62 +129,104 @@ function handle_packet() {
             }
             break;
 
-		case "SIT":
+case "SIT":
+    var username = buffer_read(argument0, buffer_string);
+    var chair_id = buffer_read(argument0, buffer_u16);
+
+    show_debug_message("[REDE] SIT recebido de " + username + " para cadeira " + string(chair_id));
+
+    // Verifica tanto jogadores quanto professores
+    with (obj_Network_Player) {
+        if (name == username) {
+            is_sitting = true;
+            
+            // Move para a cadeira
+            with (obj_Table) {
+                if (chair_uid == chair_id) {
+                    other.x = x - 16;
+                    other.y = y - 16;
+                }
+            }
+            
+            show_debug_message(">>> SIT aplicado para jogador " + name);
+        }
+    }
+    
+    with (obj_Network_Teacher) {
+        if (name == username) {
+            is_sitting = true;
+            
+            // Move para a cadeira (posição pode ser diferente para professores)
+            with (obj_Teacher_Table) {
+                if (chair_uid == chair_id) {
+                    other.x = x + 13;
+                    other.y = y - 18; // Ajuste a posição Y se necessário
+                }
+            }
+            
+            // Define o sprite sentado do professor (você precisará criar esse sprite)
+            sprite_index = spr_Teacher_Sitting;
+            image_speed = 1;
+            
+            show_debug_message(">>> SIT aplicado para professor " + name);
+        }
+    }
+    break;
+
+		case "STAND":
 		    var username = buffer_read(argument0, buffer_string);
-		    var chair_id = buffer_read(argument0, buffer_u16);
 
-		    show_debug_message("[REDE] SIT recebido de " + username + " para cadeira " + string(chair_id));
+		    show_debug_message("[REDE] STAND recebido de " + username);
 
+		    // Para jogadores
 		    with (obj_Network_Player) {
 		        if (name == username) {
-		            is_sitting = true;
+		            is_sitting = false;
+		            chair_id = -1;
 
-		            // Move para a cadeira
-		            with (obj_Table) {
-		                if (chair_uid == chair_id) {
-		                    other.x = x - 16;
-		                    other.y = y - 16;
-		                }
+		            if (variable_instance_exists(id, "prev_x") && variable_instance_exists(id, "prev_y")) {
+		                x = prev_x;
+		                y = prev_y;
 		            }
 
-		            show_debug_message(">>> SIT aplicado para " + name);
+		            switch (last_direction) {
+		                case "left": sprite_index = spr_Student_Iddle_Left; break;
+		                case "right": sprite_index = spr_Student_Iddle_Right; break;
+		                case "up": sprite_index = spr_Student_Iddle_Up; break;
+		                case "down": sprite_index = spr_Student_Iddle_Down; break;
+		                default: sprite_index = sprite_standing; break;
+		            }
+		            image_speed = 1;
+
+		            show_debug_message(">>> STAND aplicado para jogador " + name);
+		        }
+		    }
+    
+		    // Para professores
+		    with (obj_Network_Teacher) {
+		        if (name == username) {
+		            is_sitting = false;
+		            chair_id = -1;
+
+		            if (variable_instance_exists(id, "prev_x") && variable_instance_exists(id, "prev_y")) {
+		                x = prev_x;
+		                y = prev_y;
+		            }
+
+		            // Define o sprite em pé do professor (você precisará criar esse sprite)
+		            switch (last_direction) {
+		                case "left": sprite_index = spr_Teacher_Iddle_Left; break;
+		                case "right": sprite_index = spr_Teacher_Iddle_Right; break;
+		                case "up": sprite_index = spr_Teacher_Iddle_Up; break;
+		                case "down": sprite_index = spr_Teacher_Iddle_Down; break;
+		                default: sprite_index = sprite_teacher_standing; break;
+		            }
+		            image_speed = 1;
+
+		            show_debug_message(">>> STAND aplicado para professor " + name);
 		        }
 		    }
 		    break;
-
-
-
-
-    case "STAND":
-        var username = buffer_read(argument0, buffer_string);
-
-        show_debug_message("[REDE] STAND recebido de " + username);
-
-        with (obj_Network_Player) {
-            if (name == username) {
-                is_sitting = false;
-                chair_id = -1;
-
-                // Opcional: Reposicionar o jogador para onde ele estava antes de sentar
-                if (variable_instance_exists(id, "prev_x") && variable_instance_exists(id, "prev_y")) {
-                    x = prev_x;
-                    y = prev_y;
-                }
-
-                // Atualiza o sprite imediatamente para o idle da última direção
-                switch (last_direction) {
-                    case "left": sprite_index = spr_Student_Iddle_Left; break;
-                    case "right": sprite_index = spr_Student_Iddle_Right; break;
-                    case "up": sprite_index = spr_Student_Iddle_Up; break;
-                    case "down": sprite_index = spr_Student_Iddle_Down; break;
-                    default: sprite_index = sprite_standing; break;
-                }
-                image_speed = 1;
-
-                show_debug_message(">>> STAND aplicado para " + name);
-            }
-        }
-        break;
 
 
 
