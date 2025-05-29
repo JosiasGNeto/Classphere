@@ -155,21 +155,37 @@ function handle_packet() {
 
 
 
-		case "STAND":
-		    var username = buffer_read(argument0, buffer_string);
-    
-		    show_debug_message("[REDE] STAND recebido de " + username);
-    
-		    with (obj_Network_Player) {
-		        if (name == username) {
-		            is_sitting = false;
-		            chair_id = -1;
+    case "STAND":
+        var username = buffer_read(argument0, buffer_string);
 
-		            x = prev_x;
-		            y = prev_y;
-		        }
-		    }
-		    break;
+        show_debug_message("[REDE] STAND recebido de " + username);
+
+        with (obj_Network_Player) {
+            if (name == username) {
+                is_sitting = false;
+                chair_id = -1;
+
+                // Opcional: Reposicionar o jogador para onde ele estava antes de sentar
+                if (variable_instance_exists(id, "prev_x") && variable_instance_exists(id, "prev_y")) {
+                    x = prev_x;
+                    y = prev_y;
+                }
+
+                // Atualiza o sprite imediatamente para o idle da última direção
+                switch (last_direction) {
+                    case "left": sprite_index = spr_Student_Iddle_Left; break;
+                    case "right": sprite_index = spr_Student_Iddle_Right; break;
+                    case "up": sprite_index = spr_Student_Iddle_Up; break;
+                    case "down": sprite_index = spr_Student_Iddle_Down; break;
+                    default: sprite_index = sprite_standing; break;
+                }
+                image_speed = 1;
+
+                show_debug_message(">>> STAND aplicado para " + name);
+            }
+        }
+        break;
+
 
 
 
