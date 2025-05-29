@@ -87,59 +87,6 @@ function handle_packet() {
 		    }
 		    break;
 
-
-		case "SIT":
-		    var username = buffer_read(argument0, buffer_string);
-		    var sit_x = buffer_read(argument0, buffer_f32);
-		    var sit_y = buffer_read(argument0, buffer_f32);
-
-		    var found = noone;
-		    with (obj_Network_Player) {
-		        if (name == username) {
-		            found = id; // armazena a referência à instância encontrada
-		        }
-		    }
-
-		    if (found != noone) {
-		        with (found) {
-		            visible = false;
-		            is_sitting = true;
-
-		            var sit_sprite = instance_create_layer(sit_x, sit_y, "Instances", obj_Player_Sitting);
-		            sit_sprite.depth = depth - 1;
-		            sit_sprite.x = sit_x + 11;
-		            sit_sprite.y = sit_y + 9;
-		            sit_sprite.owner = id; // usa o id da própria instância
-		        }
-		    }
-		    break;
-
-
-		case "UNSIT":
-		    var username = buffer_read(argument0, buffer_string);
-
-		    var found = noone;
-		    with (obj_Network_Player) {
-		        if (name == username) {
-		            found = id;
-		        }
-		    }
-
-		    if (found != noone) {
-		        with (found) {
-		            visible = true;
-		            is_sitting = false;
-		        }
-
-		        with (obj_Player_Sitting) {
-		            if (owner == found) {
-		                instance_destroy();
-		            }
-		        }
-		    }
-		    break;
-
-
         case "USER_DATA":
             var nome        = buffer_read(argument0, buffer_string);
             var sobrenome1  = buffer_read(argument0, buffer_string);
