@@ -31,11 +31,9 @@ module.exports = function(){
 
     this.broadcastroom = function(packetData){
         maps[client.user.current_room].clients.forEach(function(otherClient){
-
             if(otherClient.user.username != client.user.username){
                 otherClient.socket.write(packetData);
             }
-
         })
     };
 
