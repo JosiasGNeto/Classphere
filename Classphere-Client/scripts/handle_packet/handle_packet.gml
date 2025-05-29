@@ -52,90 +52,33 @@ function handle_packet() {
             break;
 
 		case "POS":
-		    username    = buffer_read(argument0, buffer_string);
-		    target_x    = buffer_read(argument0, buffer_u16);
-		    target_y    = buffer_read(argument0, buffer_u16);
-		    is_teacher  = buffer_read(argument0, buffer_u8); // <- novo campo vindo do servidor
+		    var username   = buffer_read(argument0, buffer_string);
+		    var tx         = buffer_read(argument0, buffer_u16);
+		    var ty         = buffer_read(argument0, buffer_u16);
+		    var is_teacher = buffer_read(argument0, buffer_u8);
 
-		    // Primeiro tenta encontrar se o jogador já existe na sala
-		    foundPlayer = -1;
+		    var foundPlayer = -1;
+
 		    with (obj_Network_Player) {
-		        if (name == other.username) {
-		            other.foundPlayer = id;
+		        if (name == username) {
+		            foundPlayer = id;
 		        }
 		    }
 		    with (obj_Network_Teacher) {
-		        if (name == other.username) {
-		            other.foundPlayer = id;
+		        if (name == username) {
+		            foundPlayer = id;
 		        }
 		    }
 
-		    // Se encontrou, atualiza a posição
 		    if (foundPlayer != -1) {
 		        with (foundPlayer) {
-		            target_x = other.target_x;
-		            target_y = other.target_y;
+		            target_x = tx;
+		            target_y = ty;
 		        }
-		    } 
-		    // Senão, cria com o objeto correto com base em is_teacher
-		    else {
+		    } else {
 		        var player_obj = is_teacher == 1 ? obj_Network_Teacher : obj_Network_Player;
-
-		        with (instance_create_depth(target_x, target_y, 1, player_obj)) {
-		            name = other.username;
-		        }
-		    }
-		    break;
-
-
-		case "SIT":
-		    var username = buffer_read(argument0, buffer_string);
-		    var sit_x = buffer_read(argument0, buffer_f32);
-		    var sit_y = buffer_read(argument0, buffer_f32);
-
-		    var found = noone;
-		    with (obj_Network_Player) {
-		        if (name == username) {
-		            found = id; // armazena a referência à instância encontrada
-		        }
-		    }
-
-		    if (found != noone) {
-		        with (found) {
-		            visible = false;
-		            is_sitting = true;
-
-		            var sit_sprite = instance_create_layer(sit_x, sit_y, "Instances", obj_Player_Sitting);
-		            sit_sprite.depth = depth - 1;
-		            sit_sprite.x = sit_x + 11;
-		            sit_sprite.y = sit_y + 9;
-		            sit_sprite.owner = id; // usa o id da própria instância
-		        }
-		    }
-		    break;
-
-
-		case "UNSIT":
-		    var username = buffer_read(argument0, buffer_string);
-
-		    var found = noone;
-		    with (obj_Network_Player) {
-		        if (name == username) {
-		            found = id;
-		        }
-		    }
-
-		    if (found != noone) {
-		        with (found) {
-		            visible = true;
-		            is_sitting = false;
-		        }
-
-		        with (obj_Player_Sitting) {
-		            if (owner == found) {
-		                instance_destroy();
-		            }
-		        }
+		        var inst = instance_create_depth(tx, ty, 1, player_obj);
+		        inst.name = username;
 		    }
 		    break;
 
@@ -185,5 +128,109 @@ function handle_packet() {
                 show_message("Erro ao excluir usuário.");
             }
             break;
+
+case "SIT":
+    var username = buffer_read(argument0, buffer_string);
+    var chair_id = buffer_read(argument0, buffer_u16);
+
+    show_debug_message("[REDE] SIT recebido de " + username + " para cadeira " + string(chair_id));
+
+    // Verifica tanto jogadores quanto professores
+    with (obj_Network_Player) {
+        if (name == username) {
+            is_sitting = true;
+            
+            // Move para a cadeira
+            with (obj_Table) {
+                if (chair_uid == chair_id) {
+                    other.x = x - 16;
+                    other.y = y - 16;
+                }
+            }
+            
+            show_debug_message(">>> SIT aplicado para jogador " + name);
+        }
+    }
+    
+    with (obj_Network_Teacher) {
+        if (name == username) {
+            is_sitting = true;
+            
+            // Move para a cadeira (posição pode ser diferente para professores)
+            with (obj_Teacher_Table) {
+                if (chair_uid == chair_id) {
+                    other.x = x + 13;
+                    other.y = y - 18; // Ajuste a posição Y se necessário
+                }
+            }
+            
+            // Define o sprite sentado do professor (você precisará criar esse sprite)
+            sprite_index = spr_Teacher_Sitting;
+            image_speed = 1;
+            
+            show_debug_message(">>> SIT aplicado para professor " + name);
+        }
+    }
+    break;
+
+		case "STAND":
+		    var username = buffer_read(argument0, buffer_string);
+
+		    show_debug_message("[REDE] STAND recebido de " + username);
+
+		    // Para jogadores
+		    with (obj_Network_Player) {
+		        if (name == username) {
+		            is_sitting = false;
+		            chair_id = -1;
+
+		            if (variable_instance_exists(id, "prev_x") && variable_instance_exists(id, "prev_y")) {
+		                x = prev_x;
+		                y = prev_y;
+		            }
+
+		            switch (last_direction) {
+		                case "left": sprite_index = spr_Student_Iddle_Left; break;
+		                case "right": sprite_index = spr_Student_Iddle_Right; break;
+		                case "up": sprite_index = spr_Student_Iddle_Up; break;
+		                case "down": sprite_index = spr_Student_Iddle_Down; break;
+		                default: sprite_index = sprite_standing; break;
+		            }
+		            image_speed = 1;
+
+		            show_debug_message(">>> STAND aplicado para jogador " + name);
+		        }
+		    }
+    
+		    // Para professores
+		    with (obj_Network_Teacher) {
+		        if (name == username) {
+		            is_sitting = false;
+		            chair_id = -1;
+
+		            if (variable_instance_exists(id, "prev_x") && variable_instance_exists(id, "prev_y")) {
+		                x = prev_x;
+		                y = prev_y;
+		            }
+
+		            // Define o sprite em pé do professor (você precisará criar esse sprite)
+		            switch (last_direction) {
+		                case "left": sprite_index = spr_Teacher_Iddle_Left; break;
+		                case "right": sprite_index = spr_Teacher_Iddle_Right; break;
+		                case "up": sprite_index = spr_Teacher_Iddle_Up; break;
+		                case "down": sprite_index = spr_Teacher_Iddle_Down; break;
+		                default: sprite_index = sprite_teacher_standing; break;
+		            }
+		            image_speed = 1;
+
+		            show_debug_message(">>> STAND aplicado para professor " + name);
+		        }
+		    }
+		    break;
+
+
+
+
+
     }
 }

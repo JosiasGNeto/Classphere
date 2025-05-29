@@ -1,15 +1,15 @@
 {
   "$GMObject":"",
-  "%Name":"obj_Player_Sitting",
+  "%Name":"obj_Controller",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"obj_Player_Sitting",
+  "name":"obj_Controller",
   "overriddenProperties":[],
   "parent":{
-    "name":"Students",
-    "path":"folders/Objects/Players/Students.yy",
+    "name":"System",
+    "path":"folders/Objects/System.yy",
   },
   "parentObjectId":null,
   "persistent":false,
@@ -29,10 +29,7 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":{
-    "name":"spr_Student_Sitting",
-    "path":"sprites/spr_Student_Sitting/spr_Student_Sitting.yy",
-  },
+  "spriteId":null,
   "spriteMaskId":null,
   "visible":true,
 }

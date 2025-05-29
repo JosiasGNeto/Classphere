@@ -21,8 +21,8 @@ function Sit(player) {
 		player.prev_x = player.x;
 		player.prev_y = player.y;
 		
-        player.x = x - 16;
-        player.y = y - 16;
+        player.x = x + 13;
+        player.y = y - 18;
 		
 		var buffer = buffer_create(256, buffer_grow, 1);
 		buffer_write(buffer, buffer_string, "SIT");

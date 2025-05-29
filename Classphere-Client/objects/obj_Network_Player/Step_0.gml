@@ -1,19 +1,26 @@
 if (is_sitting) {
-    // Jogador está sentado — fixa posição e sprite sentado
-    x = sit_x;
-    y = sit_y;
-    sprite_index = sitting_sprite;
+    sprite_index = sprite_sitting;
     image_speed = 1;
-
+    show_debug_message("Sentou");
 } else {
-    // Jogador andando ou parado normalmente
     var dx = target_x - x;
     var dy = target_y - y;
-    var move_speed = 4;
+    var move_speed = 2;
+    var dist = point_distance(x, y, target_x, target_y);
 
-    if (point_distance(x, y, target_x, target_y) > 1) {
+    if (dist > 1) {
+        if (dist < move_speed) {
+            x = target_x;
+            y = target_y;
+        } else {
+            var dir = point_direction(x, y, target_x, target_y);
+            x += lengthdir_x(move_speed, dir);
+            y += lengthdir_y(move_speed, dir);
+        }
+
+        image_speed = 1;
+        
         if (abs(dx) > abs(dy)) {
-            x += clamp(dx, -move_speed, move_speed);
             if (dx > 0) {
                 last_direction = "right";
                 sprite_index = spr_Student_Walking_Right;
@@ -22,7 +29,6 @@ if (is_sitting) {
                 sprite_index = spr_Student_Walking_Left;
             }
         } else {
-            y += clamp(dy, -move_speed, move_speed);
             if (dy > 0) {
                 last_direction = "down";
                 sprite_index = spr_Student_Walking_Down;
@@ -31,9 +37,7 @@ if (is_sitting) {
                 sprite_index = spr_Student_Walking_Up;
             }
         }
-        image_speed = 1;
     } else {
-        // parado, mostrar idle baseado na direção
         switch (last_direction) {
             case "left": sprite_index = spr_Student_Iddle_Left; break;
             case "right": sprite_index = spr_Student_Iddle_Right; break;

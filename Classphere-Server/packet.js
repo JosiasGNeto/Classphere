@@ -211,24 +211,30 @@ module.exports = packet = {
                     }
                 });
                 break;
-
+            
             case "SIT":
-                console.log(`[SIT] ${c.user.username} está sentando em (${c.user.pos_x}, ${c.user.pos_y})`);
-                c.broadcastroom(packet.build([
-                    "SIT",
-                    c.user.username,
-                    c.user.pos_x,
-                    c.user.pos_y
-                ]));
+                var data = PacketModels.sit.parse(datapacket);
+                console.log("Interpret: SIT");
+                console.log("Valores recebidos:", data);
+
+                c.user.chair_uid = data.chair_uid;
+
+                const pacote = packet.build(["SIT", data.username, data.chair_uid]);
+                console.log("Pacote a enviar para broadcast:", pacote);
+
+                c.broadcastroom(pacote);
                 break;
 
-            case "UNSIT":
-                console.log(`[UNSIT] ${c.user.username} levantou`);
-                c.broadcastroom(packet.build([
-                    "UNSIT",
-                    c.user.username
-                ]));
+            case "STAND":
+                var username = PacketModels.stand.parse(datapacket).username;
+
+                console.log("Enviando comando STAND para " + c.user.username);
+
+                // Reenvia para todos os outros jogadores da sala
+                c.broadcastroom(packet.build(["STAND", username]));
                 break;
+
+
 
         }   
 
