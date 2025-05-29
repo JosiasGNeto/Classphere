@@ -132,5 +132,60 @@ function handle_packet() {
                 show_message("Erro ao excluir usuário.");
             }
             break;
+			
+		case "SIT":
+		    var username = buffer_read(argument0, buffer_string);
+		    var chair_id = buffer_read(argument0, buffer_u16);
+			
+			show_debug_message("[REDE] SIT recebido de " + username + " para cadeira " + string(chair_id));
+
+		    with (obj_Network_Player) {
+		        if (name == username) {
+		            // Encontra a cadeira
+		            with (obj_Table) {
+		                if (id == chair_id) {
+		                    Sit(other); // other = jogador alvo
+		                }
+		            }
+		        }
+		    }
+
+		    with (obj_Network_Teacher) {
+		        if (name == username) {
+		            with (obj_Table) {
+		                if (id == chair_id) {
+		                    Sit(other);
+		                }
+		            }
+		        }
+		    }
+		    break;
+
+		case "STAND":
+		    var username = buffer_read(argument0, buffer_string);
+			
+			show_debug_message("[REDE] STAND recebido de " + username);
+
+		    with (obj_Network_Player) {
+		        if (name == username) {
+		            with (obj_Table) {
+		                if (id == other.id) {
+		                    Stand(other);
+		                }
+		            }
+		        }
+		    }
+
+		    with (obj_Network_Teacher) {
+		        if (name == username) {
+		            with (obj_Table) {
+		                if (occupant_id == other.id) {
+		                    Stand(other);
+		                }
+		            }
+		        }
+		    }
+		    break;
+
     }
 }

@@ -42,5 +42,15 @@ module.exports = PacketModels = {
 
     delete_user: new Parser().skip(1)
         .string("command", StringOptions)
-        .string("rg", StringOptions)
+        .string("rg", StringOptions),
+    
+    sit: new Parser().skip(1)
+        .string("command", StringOptions)
+        .string("username", StringOptions)
+        .uint16le("chair_uid"),
+
+    stand: new Parser().skip(1)
+        .string("command", StringOptions)
+        .string("username", StringOptions),
+
 };

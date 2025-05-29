@@ -23,6 +23,14 @@ function Sit(player) {
 		
         player.x = x - 16;
         player.y = y - 16;
+		
+		var buffer = buffer_create(256, buffer_grow, 1);
+		buffer_write(buffer, buffer_string, "SIT");
+		buffer_write(buffer, buffer_string, Network.username);
+		buffer_write(buffer, buffer_u16, chair_uid); // ID da cadeira
+		network_write(Network.socket, buffer);
+		buffer_delete(buffer);
+
         return true;
     }
     return false;
@@ -36,6 +44,13 @@ function Stand(player) {
         player.chair_id = -1;
         player.x = player.prev_x;
         player.y = player.prev_y;
+		
+		var buffer = buffer_create(256, buffer_grow, 1);
+		buffer_write(buffer, buffer_string, "STAND");
+		buffer_write(buffer, buffer_string, Network.username);
+		network_write(Network.socket, buffer);
+		buffer_delete(buffer);
+
         return true;
     }
     return false;
