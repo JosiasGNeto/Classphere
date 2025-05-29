@@ -30,10 +30,8 @@ module.exports = function(){
     }
 
     this.broadcastroom = function(packetData){
-        console.log("broadcastroom para sala", client.user.current_room, "com", maps[client.user.current_room].clients.length, "clientes");
         maps[client.user.current_room].clients.forEach(function(otherClient){
             if(otherClient.user.username != client.user.username){
-                console.log(`Enviando broadcast para ${otherClient.user.username}`);
                 otherClient.socket.write(packetData);
             }
         })

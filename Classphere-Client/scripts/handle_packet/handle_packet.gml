@@ -52,40 +52,36 @@ function handle_packet() {
             break;
 
 		case "POS":
-		    username    = buffer_read(argument0, buffer_string);
-		    target_x    = buffer_read(argument0, buffer_u16);
-		    target_y    = buffer_read(argument0, buffer_u16);
-		    is_teacher  = buffer_read(argument0, buffer_u8); // <- novo campo vindo do servidor
+		    var username   = buffer_read(argument0, buffer_string);
+		    var tx         = buffer_read(argument0, buffer_u16);
+		    var ty         = buffer_read(argument0, buffer_u16);
+		    var is_teacher = buffer_read(argument0, buffer_u8);
 
-		    // Primeiro tenta encontrar se o jogador já existe na sala
-		    foundPlayer = -1;
+		    var foundPlayer = -1;
+
 		    with (obj_Network_Player) {
-		        if (name == other.username) {
-		            other.foundPlayer = id;
+		        if (name == username) {
+		            foundPlayer = id;
 		        }
 		    }
 		    with (obj_Network_Teacher) {
-		        if (name == other.username) {
-		            other.foundPlayer = id;
+		        if (name == username) {
+		            foundPlayer = id;
 		        }
 		    }
 
-		    // Se encontrou, atualiza a posição
 		    if (foundPlayer != -1) {
 		        with (foundPlayer) {
-		            target_x = other.target_x;
-		            target_y = other.target_y;
+		            target_x = tx;
+		            target_y = ty;
 		        }
-		    } 
-		    // Senão, cria com o objeto correto com base em is_teacher
-		    else {
+		    } else {
 		        var player_obj = is_teacher == 1 ? obj_Network_Teacher : obj_Network_Player;
-
-		        with (instance_create_depth(target_x, target_y, 1, player_obj)) {
-		            name = other.username;
-		        }
+		        var inst = instance_create_depth(tx, ty, 1, player_obj);
+		        inst.name = username;
 		    }
 		    break;
+
 
         case "USER_DATA":
             var nome        = buffer_read(argument0, buffer_string);
@@ -132,60 +128,51 @@ function handle_packet() {
                 show_message("Erro ao excluir usuário.");
             }
             break;
-			
+
 		case "SIT":
 		    var username = buffer_read(argument0, buffer_string);
 		    var chair_id = buffer_read(argument0, buffer_u16);
-			
-			show_debug_message("[REDE] SIT recebido de " + username + " para cadeira " + string(chair_id));
+
+		    show_debug_message("[REDE] SIT recebido de " + username + " para cadeira " + string(chair_id));
 
 		    with (obj_Network_Player) {
 		        if (name == username) {
-		            // Encontra a cadeira
-		            with (obj_Table) {
-		                if (id == chair_id) {
-		                    Sit(other); // other = jogador alvo
-		                }
-		            }
-		        }
-		    }
+		            is_sitting = true;
 
-		    with (obj_Network_Teacher) {
-		        if (name == username) {
+		            // Move para a cadeira
 		            with (obj_Table) {
-		                if (id == chair_id) {
-		                    Sit(other);
+		                if (chair_uid == chair_id) {
+		                    other.x = x - 16;
+		                    other.y = y - 16;
 		                }
 		            }
+
+		            show_debug_message(">>> SIT aplicado para " + name);
 		        }
 		    }
 		    break;
+
+
+
 
 		case "STAND":
 		    var username = buffer_read(argument0, buffer_string);
-			
-			show_debug_message("[REDE] STAND recebido de " + username);
-
+    
+		    show_debug_message("[REDE] STAND recebido de " + username);
+    
 		    with (obj_Network_Player) {
 		        if (name == username) {
-		            with (obj_Table) {
-		                if (id == other.id) {
-		                    Stand(other);
-		                }
-		            }
-		        }
-		    }
+		            is_sitting = false;
+		            chair_id = -1;
 
-		    with (obj_Network_Teacher) {
-		        if (name == username) {
-		            with (obj_Table) {
-		                if (occupant_id == other.id) {
-		                    Stand(other);
-		                }
-		            }
+		            x = prev_x;
+		            y = prev_y;
 		        }
 		    }
 		    break;
+
+
+
 
     }
 }
