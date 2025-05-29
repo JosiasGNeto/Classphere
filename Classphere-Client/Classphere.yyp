@@ -126,6 +126,7 @@
     {"id":{"name":"spr_Teacher_Iddle_Left","path":"sprites/spr_Teacher_Iddle_Left/spr_Teacher_Iddle_Left.yy",},},
     {"id":{"name":"spr_Teacher_Iddle_Right","path":"sprites/spr_Teacher_Iddle_Right/spr_Teacher_Iddle_Right.yy",},},
     {"id":{"name":"spr_Teacher_Iddle_Up","path":"sprites/spr_Teacher_Iddle_Up/spr_Teacher_Iddle_Up.yy",},},
+    {"id":{"name":"spr_Teacher_Sitting","path":"sprites/spr_Teacher_Sitting/spr_Teacher_Sitting.yy",},},
     {"id":{"name":"spr_Teacher_Walking_Down","path":"sprites/spr_Teacher_Walking_Down/spr_Teacher_Walking_Down.yy",},},
     {"id":{"name":"spr_Teacher_Walking_Left","path":"sprites/spr_Teacher_Walking_Left/spr_Teacher_Walking_Left.yy",},},
     {"id":{"name":"spr_Teacher_Walking_Right","path":"sprites/spr_Teacher_Walking_Right/spr_Teacher_Walking_Right.yy",},},
