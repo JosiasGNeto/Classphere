@@ -110,7 +110,7 @@
     "9647":{"character":9647,"h":18,"offset":3,"shift":16,"w":10,"x":208,"y":62,},
   },
   "hinting":0,
-  "includeTTF":false,
+  "includeTTF":true,
   "interpreter":0,
   "italic":false,
   "kerningPairs":[
@@ -210,6 +210,6 @@
     "name":"Default",
     "path":"texturegroups/Default",
   },
-  "TTFName":"",
+  "TTFName":"C:\\Users\\Josias\\Documents\\Engenharia Software\\8º Período\\Trabalho de Conclusão de Curso II\\Projeto\\Classphere\\Classphere-Client\\fonts\\fnt_Chat\\Roboto.ttf",
   "usesSDF":false,
 }
