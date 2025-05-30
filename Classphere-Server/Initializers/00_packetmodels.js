@@ -52,5 +52,9 @@ module.exports = PacketModels = {
     stand: new Parser().skip(1)
         .string("command", StringOptions)
         .string("username", StringOptions),
-
+        
+    chat: new Parser().skip(1)
+        .string("command", StringOptions)
+        .string("username", StringOptions)
+        .string("message", StringOptions),
 };

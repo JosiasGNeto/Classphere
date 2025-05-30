@@ -226,13 +226,23 @@ module.exports = packet = {
                 break;
 
             case "STAND":
-                var username = PacketModels.stand.parse(datapacket).username;
-
                 console.log("Enviando comando STAND para " + c.user.username);
 
                 // Reenvia para todos os outros jogadores da sala
-                c.broadcastroom(packet.build(["STAND", username]));
+                c.broadcastroom(packet.build(["STAND", c.user.username]));
                 break;
+
+            
+            case "CHAT":
+                const username = PacketModels.chat.parse(datapacket).username;
+                const message = PacketModels.chat.parse(datapacket).message;
+
+                console.log(`[CHAT] ${username}: ${message}`);
+
+                c.broadcastroom(packet.build(["CHAT", username, message]));
+                break;
+
+
 
 
 

@@ -38,6 +38,7 @@
     {"name":"inst_5B857055","path":"rooms/spawn/spawn.yy",},
     {"name":"inst_5ED652C0","path":"rooms/spawn/spawn.yy",},
     {"name":"inst_71CE6A0","path":"rooms/spawn/spawn.yy",},
+    {"name":"inst_36B6B6F8","path":"rooms/spawn/spawn.yy",},
   ],
   "isDnd":false,
   "layers":[
@@ -76,6 +77,7 @@
         {"$GMRInstance":"v2","%Name":"inst_6538BD3D","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_6538BD3D","objectId":{"name":"obj_Table","path":"objects/obj_Table/obj_Table.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":778.0,"y":1444.0,},
         {"$GMRInstance":"v2","%Name":"inst_6BBB7CE5","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_6BBB7CE5","objectId":{"name":"obj_Table","path":"objects/obj_Table/obj_Table.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":778.0,"y":1524.0,},
         {"$GMRInstance":"v2","%Name":"inst_71CE6A0","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_71CE6A0","objectId":{"name":"obj_Teacher_Table","path":"objects/obj_Teacher_Table/obj_Teacher_Table.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":644.0,"y":345.0,},
+        {"$GMRInstance":"v2","%Name":"inst_36B6B6F8","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_36B6B6F8","objectId":{"name":"obj_ChatBox","path":"objects/obj_ChatBox/obj_ChatBox.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":766.0,"y":530.0,},
       ],"layers":[],"name":"Objects","properties":[],"resourceType":"GMRInstanceLayer","resourceVersion":"2.0","userdefinedDepth":false,"visible":true,},
     {"$GMRTileLayer":"","%Name":"Class","depth":200,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"layers":[],"name":"Class","properties":[],"resourceType":"GMRTileLayer","resourceVersion":"2.0","tiles":{"SerialiseHeight":125,"SerialiseWidth":188,"TileCompressedData":[
           -45,454,-143,-2147483648,-45,454,-143,-2147483648,-45,454,-143,-2147483648,-45,454,-143,-2147483648,
