@@ -112,6 +112,7 @@
     {"id":{"name":"room_builder","path":"sprites/room_builder/room_builder.yy",},},
     {"id":{"name":"spr_Blocked","path":"sprites/spr_Blocked/spr_Blocked.yy",},},
     {"id":{"name":"spr_Chair","path":"sprites/spr_Chair/spr_Chair.yy",},},
+    {"id":{"name":"spr_ChatBox_NewMsg","path":"sprites/spr_ChatBox_NewMsg/spr_ChatBox_NewMsg.yy",},},
     {"id":{"name":"spr_ChatBox","path":"sprites/spr_ChatBox/spr_ChatBox.yy",},},
     {"id":{"name":"spr_ChatClose","path":"sprites/spr_ChatClose/spr_ChatClose.yy",},},
     {"id":{"name":"spr_cursor1","path":"sprites/spr_cursor1/spr_cursor1.yy",},},

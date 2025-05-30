@@ -4,15 +4,19 @@ var my = device_mouse_y_to_gui(0);
 
 // 1. Desenha o botão do chat (ícone), se não estiver expandido
 if (!chat_expanded) {
-    draw_sprite(spr_ChatBox, 0, chat_icon_x, chat_icon_y);
+    if (has_new_message) {
+        draw_sprite(spr_ChatBox_NewMsg, 0, chat_icon_x, chat_icon_y); // Sprite com notificação
+    } else {
+        draw_sprite(spr_ChatBox, 0, chat_icon_x, chat_icon_y);        // Sprite normal
+    }
 
     // Verifica se mouse está sobre o botão do chat (supondo que o sprite tenha 32x32)
     var icon_size = 32;
     if (point_in_rectangle(mx, my, chat_icon_x - icon_size/2, chat_icon_y - icon_size/2, chat_icon_x + icon_size/2, chat_icon_y + icon_size/2)) {
         cursor_sprite = spr_cursor2;
-	} else {
-	    cursor_sprite = spr_cursor1;
-	}
+    } else {
+        cursor_sprite = spr_cursor1;
+    }
 }
 
 // 2. Desenha o chat e botão "X" se expandido
@@ -61,8 +65,7 @@ if (chat_expanded) {
     // Verifica se mouse está sobre o botão "X"
     if (point_in_rectangle(mx, my, close_x, close_y, close_x + close_size, close_y + close_size)) {
         cursor_sprite = spr_cursor2;
-	} else {
-	    cursor_sprite = spr_cursor1;
-	}
-    
+    } else {
+        cursor_sprite = spr_cursor1;
+    }
 }

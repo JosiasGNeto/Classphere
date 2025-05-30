@@ -22,8 +22,10 @@ if (chat_active) {
     global.chat_active = true;
 }
 
+// Se o chat não estiver aberto, abre e ativa
 if (!chat_expanded) {
-	chat_expanded = true;
-	chat_active = true;
-	global.chat_active = true;
+    chat_expanded = true;
+    chat_active = true;
+    global.chat_active = true;
+    has_new_message = false;  // Limpa a notificação ao abrir o chat
 }
