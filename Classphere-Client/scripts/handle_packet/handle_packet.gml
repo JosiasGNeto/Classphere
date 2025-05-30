@@ -221,5 +221,17 @@ function handle_packet() {
                 }
             }
             break;
+			
+		case "CHAT":
+		    var username = buffer_read(argument0, buffer_string);
+		    var msg = buffer_read(argument0, buffer_string);
+			with (obj_ChatBox) {
+			    array_push(chat_log, username + ": " + msg);
+			    if (!chat_expanded) {
+			        has_new_message = true;
+			    }
+			}
+		    break;	
+
     }
 }
