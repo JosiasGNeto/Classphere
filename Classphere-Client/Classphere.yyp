@@ -60,6 +60,7 @@
   },
   "name":"Classphere",
   "resources":[
+    {"id":{"name":"fnt_Chat","path":"fonts/fnt_Chat/fnt_Chat.yy",},},
     {"id":{"name":"fnt_default","path":"fonts/fnt_default/fnt_default.yy",},},
     {"id":{"name":"btn_Delete","path":"objects/btn_Delete/btn_Delete.yy",},},
     {"id":{"name":"btn_Login","path":"objects/btn_Login/btn_Login.yy",},},
