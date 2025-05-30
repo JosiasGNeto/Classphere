@@ -5,12 +5,11 @@ var my = device_mouse_y_to_gui(0);
 // 1. Desenha o botão do chat (ícone), se não estiver expandido
 if (!chat_expanded) {
     if (has_new_message) {
-        draw_sprite(spr_ChatBox_NewMsg, 0, chat_icon_x, chat_icon_y); // Sprite com notificação
+        draw_sprite(spr_ChatBox_NewMsg, 0, chat_icon_x, chat_icon_y);
     } else {
-        draw_sprite(spr_ChatBox, 0, chat_icon_x, chat_icon_y);        // Sprite normal
+        draw_sprite(spr_ChatBox, 0, chat_icon_x, chat_icon_y);      
     }
 
-    // Verifica se mouse está sobre o botão do chat (supondo que o sprite tenha 32x32)
     var icon_size = 32;
     if (point_in_rectangle(mx, my, chat_icon_x - icon_size/2, chat_icon_y - icon_size/2, chat_icon_x + icon_size/2, chat_icon_y + icon_size/2)) {
         cursor_sprite = spr_cursor2;
@@ -31,17 +30,19 @@ if (chat_expanded) {
     var y_base = janela_altura - margem_inferior;
     var y_topo = y_base - altura_chat;
 
-    // Desenha caixa do chat e mensagens (igual antes)
+    // Desenha caixa do chat e mensagens
     draw_set_alpha(0.6);
     draw_set_color(c_black);
     draw_rectangle(x_inicial, y_topo, x_inicial + largura_chat, y_base, false);
     draw_set_color(c_white);
-    draw_rectangle(x_inicial, y_topo, x_inicial + largura_chat, y_base, true);
+    for (var i = 0; i < 5; i++) {
+		draw_rectangle(x_inicial - i, y_topo - i, x_inicial + largura_chat + i, y_base + i, true);
+	}
     draw_set_alpha(1);
 
     draw_set_font(fnt_Chat);
     draw_set_color(c_white);
-    var a = y_base - 20;
+    var a = y_base - 30;
     for (var i = array_length(chat_log) - 1; i >= 0 && i >= array_length(chat_log) - max_messages; i--) {
         draw_text(x_inicial + 15, a, chat_log[i]);
         a -= 30;
@@ -51,6 +52,10 @@ if (chat_expanded) {
         var input_base = input_topo + 30;
         draw_set_color(c_black);
         draw_rectangle(x_inicial, input_topo, x_inicial + largura_chat, input_base, false);
+		draw_set_color(c_white);
+	    for (var i = 0; i < 5; i++) {
+			draw_rectangle(x_inicial - i, input_topo - i, x_inicial + largura_chat + i, input_base + i, true);
+		}
         draw_set_color(c_white);
         draw_text(x_inicial + 15, input_topo + 5, chat_input + "|");
     }

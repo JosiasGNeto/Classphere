@@ -22,6 +22,6 @@ has_new_message = false;
 function add_chat_message(msg) {
     array_push(chat_log, msg);
     if (!chat_expanded) {
-        has_new_message = true;  // Ativa notificação se chat estiver fechado
+        has_new_message = true; 
     }
 }
