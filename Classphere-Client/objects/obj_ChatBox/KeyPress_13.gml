@@ -17,7 +17,13 @@ if (chat_active) {
 
     chat_active = false;
     global.chat_active = false; // Fecha o chat
-} else {
+} else if (chat_expanded) {
     chat_active = true;  // Abre o chat para digitar
     global.chat_active = true;
+}
+
+if (!chat_expanded) {
+	chat_expanded = true;
+	chat_active = true;
+	global.chat_active = true;
 }
