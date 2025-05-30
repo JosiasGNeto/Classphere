@@ -1,7 +1,6 @@
 show_text = false;
 text_timer = 0;
 text_duration = 60 * 5; 
-name = "Renata"
 
 show_text = false;
 text_timer = 0;
