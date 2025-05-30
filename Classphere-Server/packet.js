@@ -41,22 +41,25 @@ module.exports = packet = {
 
     //Parse a packet to be handled for a client
     parse: function(c, data){
-
         var idx = 0;
-
         while(idx < data.length){
-
             var packetSize = data.readUInt8(idx);
-            var extractedPacket = new Buffer.alloc(packetSize);
+
+            // Verifica se o pacote está totalmente contido no buffer:
+            if (idx + packetSize > data.length) {
+                console.warn("Pacote incompleto recebido, descartando...");
+                break; // ou retorne, ignore o restante, etc.
+            }
+
+            var extractedPacket = Buffer.alloc(packetSize);
             data.copy(extractedPacket, 0, idx, idx + packetSize);
 
             this.interpret(c, extractedPacket);
 
             idx += packetSize;
-
         }
-
     },
+
 
     interpret: async function(c, datapacket){
 
