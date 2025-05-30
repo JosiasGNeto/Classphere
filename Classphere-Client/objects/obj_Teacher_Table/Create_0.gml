@@ -7,6 +7,8 @@ if (!variable_global_exists("global_chair_uid_counter")) {
 chair_uid = global.global_chair_uid_counter;
 global.global_chair_uid_counter += 1;
 
+show_press_e = false;
+
 occupant_id = -1;  
 occupied = false;
 
