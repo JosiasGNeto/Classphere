@@ -1,4 +1,5 @@
 var zeroBuffer = new Buffer.from('00', 'hex');
+let leftoverBuffer = Buffer.alloc(0); // variável global ou no contexto do socket
 
 module.exports = packet = {
 
@@ -40,25 +41,36 @@ module.exports = packet = {
 
 
     //Parse a packet to be handled for a client
-    parse: function(c, data){
-        var idx = 0;
-        while(idx < data.length){
-            var packetSize = data.readUInt8(idx);
 
-            // Verifica se o pacote está totalmente contido no buffer:
-            if (idx + packetSize > data.length) {
-                console.warn("Pacote incompleto recebido, descartando...");
-                break; // ou retorne, ignore o restante, etc.
+    parse: function(c, data) {
+        // Junta com o que sobrou da última vez
+        let buffer = Buffer.concat([leftoverBuffer, data]);
+
+        let idx = 0;
+
+        while (idx < buffer.length) {
+            if (idx + 1 > buffer.length) break; // Não tem nem byte de tamanho
+
+            let packetSize = buffer.readUInt8(idx);
+
+            if (idx + packetSize > buffer.length) {
+                // Pacote incompleto, guarda o que sobrou e para
+                leftoverBuffer = buffer.slice(idx);
+                return;
             }
 
-            var extractedPacket = Buffer.alloc(packetSize);
-            data.copy(extractedPacket, 0, idx, idx + packetSize);
+            let extractedPacket = Buffer.alloc(packetSize);
+            buffer.copy(extractedPacket, 0, idx, idx + packetSize);
 
             this.interpret(c, extractedPacket);
 
             idx += packetSize;
         }
+
+        // Se sair do loop sem sobra, limpa leftoverBuffer
+        leftoverBuffer = Buffer.alloc(0);
     },
+
 
 
     interpret: async function(c, datapacket){
