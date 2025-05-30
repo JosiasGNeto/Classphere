@@ -242,7 +242,15 @@ module.exports = packet = {
                 c.broadcastroom(packet.build(["CHAT", username, message]));
                 break;
 
+            case "DOOR":
+                var data = PacketModels.door.parse(datapacket);
+                console.log(`Porta ${data.door_id} -> ${data.action} por ${c.user.username}`);
 
+                // Envia para todos da sala (menos quem enviou)
+                c.broadcastroom(
+                    packet.build(["DOOR", data.door_id, data.action])
+                );
+                break;
 
 
 

@@ -57,4 +57,9 @@ module.exports = PacketModels = {
         .string("command", StringOptions)
         .string("username", StringOptions)
         .string("message", StringOptions),
+    
+    door: new Parser().skip(1)
+        .string("command", StringOptions)
+        .string("door_id", StringOptions)
+        .string("action", StringOptions),
 };
