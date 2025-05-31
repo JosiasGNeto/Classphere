@@ -143,6 +143,13 @@ function handle_packet() {
                             other.y = y - 16;
                         }
                     }
+					
+					with (obj_Chair) {
+                        if (chair_uid == chair_id) {
+                            other.x = x - 16;
+                            other.y = y - 16;
+                        }
+                    }
             
                     show_debug_message(">>> SIT aplicado para jogador " + name);
                 }
