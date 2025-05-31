@@ -5,6 +5,8 @@ moving = false;
 last_direction = "down";
 image_speed = 1;
 
+depth = -20;
+
 is_sitting = false;
 chair_id = -1;
 

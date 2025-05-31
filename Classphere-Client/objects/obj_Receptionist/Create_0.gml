@@ -11,6 +11,8 @@ text_sprite = spr_Speech_Welcome;
 speech_interval = 60 * 90;
 speech_timer = speech_interval;
 
+depth = -30;
+
 // Lista de sprites de fala
 speech_sprites = [
     spr_Speech_Receptionist_1,

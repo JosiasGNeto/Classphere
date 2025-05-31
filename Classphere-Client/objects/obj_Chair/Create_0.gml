@@ -10,6 +10,8 @@ global.global_chair_uid_counter += 1;
 occupant_id = -1;  
 occupied = false;
 
+depth = -15;
+
 show_press_e = false;
 
 
