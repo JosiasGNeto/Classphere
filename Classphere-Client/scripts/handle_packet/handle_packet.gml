@@ -232,6 +232,31 @@ function handle_packet() {
 			    }
 			}
 		    break;	
+			
+		case "DOOR":
+		    var door_id = buffer_read(argument0, buffer_string);
+		    var action = buffer_read(argument0, buffer_string);
+		    show_debug_message("[REDE] Porta " + door_id + " -> " + action);
+
+		    with (obj_Door) {
+		        if (string(id) == door_id) {
+		            if (action == "OPEN" && door_state == "closed") {
+		                sprite_index = spr_Door_Open;
+		                image_index = 0;
+		                image_speed = 1;
+		                door_state = "opening";
+		            }
+		            else if (action == "CLOSE" && door_state == "open") {
+		                sprite_index = spr_Door_Close;
+		                image_index = 0;
+		                image_speed = 1;
+		                door_state = "closing";
+		                solid = true;
+		            }
+		        }
+		    }
+		    break;
+
 
     }
 }

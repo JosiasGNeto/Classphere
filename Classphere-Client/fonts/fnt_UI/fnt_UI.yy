@@ -1,6 +1,6 @@
 {
   "$GMFont":"",
-  "%Name":"fnt_default",
+  "%Name":"fnt_UI",
   "AntiAlias":1,
   "applyKerning":0,
   "ascender":32,
@@ -232,7 +232,7 @@
   "last":0,
   "lineHeight":40,
   "maintainGms1Font":false,
-  "name":"fnt_default",
+  "name":"fnt_UI",
   "parent":{
     "name":"Fonts",
     "path":"folders/Fonts.yy",
@@ -249,7 +249,10 @@
   "sdfSpread":8,
   "size":26.0,
   "styleName":"Bold",
-  "textureGroupId":null,
+  "textureGroupId":{
+    "name":"Default",
+    "path":"texturegroups/Default",
+  },
   "TTFName":"",
   "usesSDF":false,
 }

@@ -1,4 +1,5 @@
 var zeroBuffer = new Buffer.from('00', 'hex');
+let leftoverBuffer = Buffer.alloc(0); // variável global ou no contexto do socket
 
 module.exports = packet = {
 
@@ -40,23 +41,37 @@ module.exports = packet = {
 
 
     //Parse a packet to be handled for a client
-    parse: function(c, data){
 
-        var idx = 0;
+    parse: function(c, data) {
+        // Junta com o que sobrou da última vez
+        let buffer = Buffer.concat([leftoverBuffer, data]);
 
-        while(idx < data.length){
+        let idx = 0;
 
-            var packetSize = data.readUInt8(idx);
-            var extractedPacket = new Buffer.alloc(packetSize);
-            data.copy(extractedPacket, 0, idx, idx + packetSize);
+        while (idx < buffer.length) {
+            if (idx + 1 > buffer.length) break; // Não tem nem byte de tamanho
+
+            let packetSize = buffer.readUInt8(idx);
+
+            if (idx + packetSize > buffer.length) {
+                // Pacote incompleto, guarda o que sobrou e para
+                leftoverBuffer = buffer.slice(idx);
+                return;
+            }
+
+            let extractedPacket = Buffer.alloc(packetSize);
+            buffer.copy(extractedPacket, 0, idx, idx + packetSize);
 
             this.interpret(c, extractedPacket);
 
             idx += packetSize;
-
         }
 
+        // Se sair do loop sem sobra, limpa leftoverBuffer
+        leftoverBuffer = Buffer.alloc(0);
     },
+
+
 
     interpret: async function(c, datapacket){
 
@@ -242,7 +257,15 @@ module.exports = packet = {
                 c.broadcastroom(packet.build(["CHAT", username, message]));
                 break;
 
+            case "DOOR":
+                var data = PacketModels.door.parse(datapacket);
+                console.log(`Porta ${data.door_id} -> ${data.action} por ${c.user.username}`);
 
+                // Envia para todos da sala (menos quem enviou)
+                c.broadcastroom(
+                    packet.build(["DOOR", data.door_id, data.action])
+                );
+                break;
 
 
 
