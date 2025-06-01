@@ -1,6 +1,6 @@
 {
   "$GMObject":"",
-  "%Name":"spr_Fridge_Cake",
+  "%Name":"obj_Bathroom_Sink",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
@@ -9,7 +9,7 @@
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"spr_Fridge_Cake",
+  "name":"obj_Bathroom_Sink",
   "overriddenProperties":[],
   "parent":{
     "name":"Interactions",
@@ -32,10 +32,10 @@
   "properties":[],
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
-  "solid":true,
+  "solid":false,
   "spriteId":{
-    "name":"spr_Fridge_Cake_Closed",
-    "path":"sprites/spr_Fridge_Cake_Closed/spr_Fridge_Cake_Closed.yy",
+    "name":"spr_Bathroom_Sink_Closed",
+    "path":"sprites/spr_Bathroom_Sink_Closed/spr_Bathroom_Sink_Closed.yy",
   },
   "spriteMaskId":null,
   "visible":true,
