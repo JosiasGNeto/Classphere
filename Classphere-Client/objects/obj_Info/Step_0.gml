@@ -14,18 +14,26 @@ var mx = mouse_x;
 var my = mouse_y;
 
 if (!text_active &&
-    (dist_player < 200 || dist_teacher < 200) &&
+    (dist_player < 100 || dist_teacher < 100) &&
     mouse_check_button_pressed(mb_left) &&
     mx >= x - 8 && mx <= x + 8 &&
-    my >= y - 8 && my <= y + 8) {
+    my >= y - 8 && my <= y + 8)
+{
+    // Fecha todos os outros painéis
+    with (obj_Info) {
+        text_active = false;
+    }
+
+    // Ativa este painel
     text_active = true;
 }
+
 
 // Se o texto está ativo
 if (text_active) {
     // Posição do botão de fechar (usando GUI)
-    var btn_x = box_x + 146;
-    var btn_y = box_y - 180;
+    var btn_x = box_x + padding_x;
+    var btn_y = box_y - padding_y;
     var btn_w = sprite_get_width(spr_Close);
     var btn_h = sprite_get_height(spr_Close);
 
@@ -40,7 +48,7 @@ if (text_active) {
     }
 
     // Fecha se se afastar demais
-    if (dist_player > 300 && dist_teacher > 300) {
+    if (dist_player > 200 && dist_teacher > 200) {
         text_active = false;
     }
 

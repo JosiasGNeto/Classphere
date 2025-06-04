@@ -1,19 +1,20 @@
 {
   "$GMObject":"",
-  "%Name":"obj_TextTrigger",
+  "%Name":"obj_Info_Starry_Night",
   "eventList":[
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":64,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"obj_TextTrigger",
+  "name":"obj_Info_Starry_Night",
   "overriddenProperties":[],
   "parent":{
     "name":"Museum",
     "path":"folders/Objects/Interactions/Museum.yy",
   },
-  "parentObjectId":null,
+  "parentObjectId":{
+    "name":"obj_Info",
+    "path":"objects/obj_Info/obj_Info.yy",
+  },
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
