@@ -5,20 +5,19 @@ module.exports = function(){
 
     var client = this;
 
-    //These objects will be added at runtime
-    //this.socket = {}
-    //this.user = {}
+    // Essas propriedades são definidas em runtime
+    // this.socket = {}
+    // this.user = {}
 
     this.initiate = function(){
         var client = this;
-        
-        //Send the connection handshake packet
+
+        // Envia o handshake de conexão
         client.socket.write(packet.build(["Hello", now().toString()]));
         console.log('Client initiated');
-
     }
-    
-    //Client Methods
+
+    // Método para o cliente entrar numa sala
     this.enterroom = function(selected_room){
 
         maps[selected_room].clients.forEach(function(otherClient){
@@ -29,6 +28,7 @@ module.exports = function(){
 
     }
 
+    // Broadcast para todos da sala, menos ele mesmo
     this.broadcastroom = function(packetData){
         maps[client.user.current_room].clients.forEach(function(otherClient){
             if(otherClient.user.username != client.user.username){
@@ -37,17 +37,37 @@ module.exports = function(){
         })
     };
 
-    //Socket
+    // Evento de dados recebidos
     this.data = function(data){
         packet.parse(client, data);
     }
 
+    // Evento de erro na conexão
     this.error = function(err){
-        console.log("Client " + err.toString());
+        console.log("Client error: " + err.toString());
+
+        // Garante que a limpeza será feita ao ocorrer erro
+        client.end();
     }
 
+    // Evento quando o cliente fecha a conexão
     this.end = function(){
-        console.log("Client closed");
+        console.log("Client closed: " + (client.user ? client.user.username : "unknown"));
+
+        if(client.user && client.user.current_room && maps[client.user.current_room]){
+            // Remove o cliente da lista da sala
+            let roomClients = maps[client.user.current_room].clients;
+            let index = roomClients.indexOf(client);
+            if(index !== -1){
+                roomClients.splice(index, 1);
+            }
+
+            // Envia para os outros clientes que esse usuário saiu
+            const leavePacket = packet.build(["LEAVE", client.user.username]);
+            roomClients.forEach(function(otherClient){
+                otherClient.socket.write(leavePacket);
+            });
+        }
     }
-    
+
 }
