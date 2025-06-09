@@ -143,6 +143,13 @@ function handle_packet() {
                             other.y = y - 16;
                         }
                     }
+					
+					with (obj_Chair) {
+                        if (chair_uid == chair_id) {
+                            other.x = x - 16;
+                            other.y = y - 16;
+                        }
+                    }
             
                     show_debug_message(">>> SIT aplicado para jogador " + name);
                 }
@@ -256,6 +263,34 @@ function handle_packet() {
 		        }
 		    }
 		    break;
+			
+		case "LEAVE":
+		    var username = buffer_read(argument0, buffer_string);
+		    show_debug_message("[REDE] LEAVE recebido para " + username);
+
+		    // Procura tanto jogador quanto professor
+		    var foundInstance = noone;
+
+		    with (obj_Network_Player) {
+		        if (name == username) {
+		            foundInstance = id;
+		        }
+		    }
+
+		    if (foundInstance == noone) {
+		        with (obj_Network_Teacher) {
+		            if (name == username) {
+		                foundInstance = id;
+		            }
+		        }
+		    }
+
+		    if (foundInstance != noone) {
+		        instance_destroy(foundInstance);
+		        show_debug_message("Jogador " + username + " removido da sala");
+		    }
+		    break;
+
 
 
     }

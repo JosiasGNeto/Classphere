@@ -1,5 +1,5 @@
 // Área de ativação (ajustável)
-var padding = 16;
+var padding = 8;
 var x1 = bbox_left - padding;
 var y1 = bbox_top - padding;
 var x2 = bbox_right + padding;
