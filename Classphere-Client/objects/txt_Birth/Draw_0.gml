@@ -30,7 +30,7 @@ if (string_length(text) > 0) {
     draw_text(text_x, y - 22, string(text));
 	if (focused && cursor_visible) {
 	    var text_width = string_width(text);
-	    var cursor_x = x - 350 + text_width + 2; // +2 para dar um pequeno espaço do texto
+	    var cursor_x = x - 350 + text_width + 2; 
 	    var cursor_y1 = y - 22;
 	    var cursor_y2 = cursor_y1 + string_height("A") - 4;
 
